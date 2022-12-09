@@ -8,9 +8,7 @@ workflows:
   my-workflow:
     jobs:
       - set-variables:
-        context:
-          - org-global
-          - tf-def
+        context: tf-def
         
 
 # Define a job to be invoked later in a workflow.

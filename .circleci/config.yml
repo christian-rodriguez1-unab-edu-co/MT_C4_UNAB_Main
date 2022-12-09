@@ -20,6 +20,7 @@ jobs:
           name: "cd tf_trasversal"
           command: |
             cd ~/project/tf_trasversal/
+            pwd
       - run:
           name: "create terrafom.tfvars"
           command: |

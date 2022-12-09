@@ -25,7 +25,7 @@ terraform {
     key      = "tf_trasversal/terraform.tfstate"
     region   = "sa-saopaulo-1"
     endpoint = "https://grkog4hnhyhj.compat.objectstorage.sa-saopaulo-1.oraclecloud.com"
-    shared_credentials_file     = "./credentials/terraform-states_bucket_credentials"
+    shared_credentials_file     = "./terraform-states_bucket_credentials"
     skip_region_validation      = true
     skip_credentials_validation = true
     skip_metadata_api_check     = true

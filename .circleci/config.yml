@@ -17,19 +17,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "cd tf_trasversal"
-          command: |
-            cd ~/project/tf_trasversal/
-            pwd
-      - run:
           name: "create terrafom.tfvars"
           command: |
-            printenv > terraform.vars
+            printenv > ~/project/tf_trasversal/terraform.vars
             cat terraform.vars
       - run:
           name: terraform init & plan
           command: |
-            pwd
+            cd ~/project/tf_trasversal/
             terraform init -input=false
             terraform plan -out tfapply -var-file terraform.tfvars            
 

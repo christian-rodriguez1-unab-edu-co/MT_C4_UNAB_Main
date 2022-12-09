@@ -32,5 +32,4 @@ workflows:
   myworkflow:
     jobs:
       - set-variables
-        context:
-          - tf-def
+        context: tf-def

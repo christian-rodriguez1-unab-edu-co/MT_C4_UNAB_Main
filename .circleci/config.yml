@@ -9,6 +9,7 @@ workflows:
     jobs:
       - set-variables:
         context:
+          - org-global
           - tf-def
         
 

@@ -7,7 +7,7 @@ version: 2.1
 workflows:
   my-workflow:
     jobs:
-      - set-variables
+      - set-variables:
         context:
           - tf-def
         

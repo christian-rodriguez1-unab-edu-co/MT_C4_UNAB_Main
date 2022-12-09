@@ -15,8 +15,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "Say hello"
+          name: "List profile Folder"
           command: "ls ~/"
+      - run:
+          name: "List Proyect Folder"
           command: "ls ~/project/"
 
 # Invoke jobs via workflows

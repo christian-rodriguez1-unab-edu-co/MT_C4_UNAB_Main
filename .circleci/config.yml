@@ -41,7 +41,7 @@ jobs:
             echo "region=$region" >> terraform.tfvars
             echo "private_key_path=$private_key_path" >> terraform.tfvars
             echo "namespace=$namespace" >> terraform.tfvars
-            cat terraform-terraform.tfvars
+            cat terraform.tfvars
       - run:
           name: terraform init & plan
           command: |

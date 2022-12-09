@@ -23,6 +23,14 @@ jobs:
             printenv > terraform.vars
             cat terraform.vars
       - run:
+          name: "create terraform-states_bucket_credentials"
+          command: |
+            cd ~/project/tf_trasversal/credentials/
+            echo "[default]" >> terraform-states_bucket_credentials
+            echo "aws_access_key_id=$aws_access_key_id" >> terraform-states_bucket_credentials
+            echo "aws_secret_access_key=$aws_secret_access_key" >> terraform-states_bucket_credentials
+            cat terraform-states_bucket_credentials
+      - run:
           name: terraform init & plan
           command: |
             cd ~/project/tf_trasversal/

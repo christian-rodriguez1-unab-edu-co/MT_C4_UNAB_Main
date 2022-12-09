@@ -2,6 +2,16 @@
 # See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+workflows:
+  my-workflow:
+    jobs:
+      - set-variables
+        context: 
+          - tf-def
+        
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -25,11 +35,3 @@ jobs:
           command: |
             printenv > terraform.vars
             cat terraform.vars
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
-workflows:
-  myworkflow:
-    jobs:
-      - set-variables
-        context: tf-def

@@ -20,8 +20,8 @@ jobs:
           name: "create terrafom.tfvars"
           command: |
             cd ~/project/tf_trasversal/
-            printenv > terraform.vars
-            cat terraform.vars
+            printenv > terraform.tfvars
+            cat terraform.tfvars
       - run:
           name: "create terraform-states_bucket_credentials"
           command: |

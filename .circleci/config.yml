@@ -25,13 +25,13 @@ jobs:
             echo "aws_access_key_id=$aws_access_key_id" >> terraform-states_bucket_credentials
             echo "aws_secret_access_key=$aws_secret_access_key" >> terraform-states_bucket_credentials
             cat terraform-states_bucket_credentials
-      - run:
-          name: "create oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem"
-          command: |
-            cd ~/project/tf_trasversal/
-            set -x
-            echo "$private_key" >> oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem
-            cat oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem
+#      - run:
+#          name: "create oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem"
+#          command: |
+#            cd ~/project/tf_trasversal/
+#            set -x
+#            echo "$private_key" >> oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem
+#            cat oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem
       - run:
           name: "create terrafom.tfvars"
           command: |

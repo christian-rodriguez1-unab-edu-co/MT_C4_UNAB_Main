@@ -19,7 +19,8 @@ jobs:
       - run:
           name: "create terrafom.tfvars"
           command: |
-            printenv > ~/project/tf_trasversal/terraform.vars
+            cd ~/project/tf_trasversal/
+            printenv > terraform.vars
             cat terraform.vars
       - run:
           name: terraform init & plan

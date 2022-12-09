@@ -19,12 +19,12 @@ jobs:
       - run:
           name: "cd tf_trasversal"
           command: |
-            "cd ~/project/tf_trasversal/"
+            cd ~/project/tf_trasversal/
       - run:
           name: "create terrafom.tfvars"
           command: |
-          "printenv > terraform.vars"
-          "cat terraform.vars"
+            printenv > terraform.vars
+            cat terraform.vars
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

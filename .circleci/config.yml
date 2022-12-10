@@ -75,6 +75,7 @@ jobs:
           name: Docker Build & Push
           command: |
             echo $registry_pass | docker login sa-saopaulo-1.ocir.io -u $registry_user --password-stdin
+            pwd
             docker images
             docker build -t $tag . 
 #            docker push $region.ocir.io/$namespace/$Repo_CIRCLE_PROJECT_REPONAME:$tag

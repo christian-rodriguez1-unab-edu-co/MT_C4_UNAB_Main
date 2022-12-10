@@ -1,11 +1,15 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
+
+# Define orb versions to use in your pipelines
+orbs:
+  node: circleci/node@5.0.2
+  terraform: circleci/terraform@3.2.0
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  set-variables:
+  IaaC-OCI:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
@@ -19,11 +23,11 @@ jobs:
       - run:
           name: create terraform-states_bucket_credentials
           command: |
-            cd ~/project/tf_trasversal/
             echo "[default]" >> terraform-states_bucket_credentials
             echo "aws_access_key_id=$aws_access_key_id" >> terraform-states_bucket_credentials
             echo "aws_secret_access_key=$aws_secret_access_key" >> terraform-states_bucket_credentials
             cat terraform-states_bucket_credentials
+          working_directory: ~/project/tf_trasversal/
 #      - run:
 #          name: "create oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem"
 #          command: |
@@ -34,7 +38,6 @@ jobs:
       - run:
           name: create terrafom.tfvars
           command: |
-            cd ~/project/tf_trasversal/
             echo "#Provider OCI" >> terraform.tfvars
             echo "tenancy_ocid=$tenancy_ocid" >> terraform.tfvars
             echo "user_ocid=$user_ocid" >> terraform.tfvars
@@ -47,19 +50,33 @@ jobs:
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars
             cat terraform.tfvars
+          working_directory: ~/project/tf_trasversal/
       - run:
           name: terraform init, plan, apply
           command: |
-            cd ~/project/tf_trasversal/
             terraform init -input=false
             terraform plan -out tfapply -var-file terraform.tfvars
-            terraform apply -auto-approve tfapply           
+            terraform apply -auto-approve tfapply 
+          working_directory: ~/project/tf_trasversal/     
+  BulidApp:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    # set resource class
+    resource_class: small
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout     
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   my-workflow:
     jobs:
-      - set-variables:
-          context: tf-def
+      - IaaC-OCI:
+          context: 
+            - tf-def
+#      - BuildApp
         

@@ -13,7 +13,7 @@ RUN npm install
 # RUN npm ci --only=production
 
 # Bundle app source
-COPY ../module_main/* ./
+COPY ./module_main/* ./
 
 EXPOSE 443
 CMD [ "node", "app.js" ]

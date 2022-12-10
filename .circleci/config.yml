@@ -71,6 +71,7 @@ jobs:
           docker_layer_caching: true
 
       # build and push Docker image
+      - run:
           name: Docker Build & Push
           command: |
             docker build -t "Repo_$CIRCLE_PROJECT_REPONAME":$tag .

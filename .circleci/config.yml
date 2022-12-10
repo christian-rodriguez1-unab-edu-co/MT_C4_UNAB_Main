@@ -76,9 +76,10 @@ jobs:
           command: |
             echo $registry_pass | docker login sa-saopaulo-1.ocir.io -u $registry_user --password-stdin
             pwd
-            docker build -t $namespace/$Repo_$CIRCLE_PROJECT_REPONAME:$tag .
+            repo="Repo_$CIRCLE_PROJECT_REPONAME"
+            docker build -t $namespace/${!repo}:$tag .
             docker images 
-            docker push $region.ocir.io/$namespace/$Repo_$CIRCLE_PROJECT_REPONAME:$tag
+            docker push $region.ocir.io/$namespace/${!repo}:$tag
 #          docker push CircleCI-Public/circleci-demo-docker:$TAG
           working_directory: ~/project/tf_main/  
 

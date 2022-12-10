@@ -71,12 +71,13 @@ jobs:
           docker_layer_caching: true
 
       # build and push Docker image
-      - run: |
-          docker build -t "Repo_$CIRCLE_PROJECT_REPONAME":$tag .
-          echo $registry_pass | docker login -u $registry_user --password-stdin
-          docker push $region.ocir.io/$namespace/Repo_$CIRCLE_PROJECT_REPONAME:$tag
+          name: Docker Build & Push
+          command: |
+            docker build -t "Repo_$CIRCLE_PROJECT_REPONAME":$tag .
+            echo $registry_pass | docker login -u $registry_user --password-stdin
+            docker push $region.ocir.io/$namespace/Repo_$CIRCLE_PROJECT_REPONAME:$tag
 #          docker push CircleCI-Public/circleci-demo-docker:$TAG
-        working_directory: ~/project/tf_main/  
+          working_directory: ~/project/tf_main/  
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

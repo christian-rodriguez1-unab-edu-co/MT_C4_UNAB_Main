@@ -86,6 +86,6 @@ workflows:
 #      - IaaC-OCI:
 #          context: 
 #            - tf-def
-      - BuildApp
+      - BuildApp:
           context: 
             - oci-resources 

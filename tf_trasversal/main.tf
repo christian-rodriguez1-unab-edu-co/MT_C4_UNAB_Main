@@ -244,3 +244,15 @@ resource "circleci_context_environment_variable" "repo" {
   value      = oci_artifacts_container_repository.container_repository.display_name
   context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
 }
+
+resource "circleci_context_environment_variable" "namespace" {
+  variable   = "namespace"
+  value      = var.namespace
+  context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
+}
+
+resource "circleci_context_environment_variable" "region" {
+  variable   = "region"
+  value      = var.region
+  context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
+}

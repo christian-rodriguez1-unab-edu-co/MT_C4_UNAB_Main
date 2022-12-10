@@ -17,10 +17,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: "create terraform-states_bucket_credentials"
+          name: create terraform-states_bucket_credentials
           command: |
             cd ~/project/tf_trasversal/
-            set -x
             echo "[default]" >> terraform-states_bucket_credentials
             echo "aws_access_key_id=$aws_access_key_id" >> terraform-states_bucket_credentials
             echo "aws_secret_access_key=$aws_secret_access_key" >> terraform-states_bucket_credentials
@@ -33,10 +32,9 @@ jobs:
 #            echo "$private_key" >> oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem
 #            cat oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem
       - run:
-          name: "create terrafom.tfvars"
+          name: create terrafom.tfvars
           command: |
             cd ~/project/tf_trasversal/
-            set -x
             echo "tenancy_ocid=$tenancy_ocid" >> terraform.tfvars
             echo "user_ocid=$user_ocid" >> terraform.tfvars
             echo "fingerprint=$fingerprint" >> terraform.tfvars
@@ -50,7 +48,11 @@ jobs:
           command: |
             cd ~/project/tf_trasversal/
             terraform init -input=false
-            terraform plan -out tfapply -var-file terraform.tfvars            
+            terraform plan -out tfapply -var-file terraform.tfvars
+      - run:
+        name: terraform apply 
+        command: |
+          terraform apply -auto-approve tfapply            
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows

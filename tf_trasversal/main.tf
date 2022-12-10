@@ -1,23 +1,32 @@
 variable "tenancy_ocid" {
+  type = string
 }
 
 variable "user_ocid" {
+  type = string
 }
 
 variable "fingerprint" {
+  type = string
 }
 
 variable "compartment_ocid" {
+  type = string
 }
 
 variable "region" {
+  type = string
 }
 
 variable "private_key_path" {
+  type = string
 }
 
 variable "namespace" {
+  type = string
 }
+
+/* OCI */
 
 terraform {
   backend "s3" {
@@ -31,7 +40,16 @@ terraform {
     skip_metadata_api_check     = true
     force_path_style            = true
   }
+
+   required_providers {
+    circleci = {
+      source = "mrolla/circleci"
+      version = "0.6.1"
+    }
+  }
 }
+
+/* provider OCI */
 
 provider "oci" {
   region           = var.region
@@ -113,40 +131,40 @@ resource "oci_core_security_list" "security_list" {
     source   = "0.0.0.0/0"
 
     tcp_options {
-      max = "22"
-      min = "22"
+      max = "443"
+      min = "443"
     }
   }
 
-  ingress_security_rules {
-    protocol = "6"
-    source   = "0.0.0.0/0"
+#  ingress_security_rules {
+#    protocol = "6"
+#    source   = "0.0.0.0/0"
+#
+#    tcp_options {
+#      max = "3000"
+#      min = "3000"
+#    }
+#  }
 
-    tcp_options {
-      max = "3000"
-      min = "3000"
-    }
-  }
+#  ingress_security_rules {
+#    protocol = "6"
+#    source   = "0.0.0.0/0"
+#
+#    tcp_options {
+#      max = "3005"
+#      min = "3005"
+#    }
+#  }
 
-  ingress_security_rules {
-    protocol = "6"
-    source   = "0.0.0.0/0"
-
-    tcp_options {
-      max = "3005"
-      min = "3005"
-    }
-  }
-
-  ingress_security_rules {
-    protocol = "6"
-    source   = "0.0.0.0/0"
-
-    tcp_options {
-      max = "80"
-      min = "80"
-    }
-  }
+#  ingress_security_rules {
+#    protocol = "6"
+#    source   = "0.0.0.0/0"
+#
+#    tcp_options {
+#      max = "80"
+#      min = "80"
+#    }
+#  }
 }
 
 /* Functions */
@@ -193,4 +211,30 @@ resource "oci_objectstorage_bucket" "public_bucket" {
     name = "public_bucket-def"
     namespace = "${var.namespace}"
     access_type = "ObjectReadWithoutList"
+}
+
+/* provider  CircleCI*/
+
+variable "api_token" {
+  type = string
+}
+
+variable "organization" {
+  type = string
+}
+
+provider "circleci" {
+  api_token    = var.api_token
+  vcs_type     = "github"
+  organization = var.organization
+}
+
+resource "circleci_context" "oci-resources" {
+  name  = "oci-resources"
+}
+
+resource "circleci_context_environment_variable" "application_id" {
+  variable   = "application_id"
+  value      = oci_functions_application.application.id
+  context_id = circleci_context.oci-resources.id
 }

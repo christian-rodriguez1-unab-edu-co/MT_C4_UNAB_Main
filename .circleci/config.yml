@@ -1,10 +1,6 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine.
 version: 2.1
 
-# Define orb versions to use in your pipelines
-orbs:
-  node: circleci/node@5.0.2
-
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
@@ -48,6 +44,7 @@ jobs:
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars
+            echo "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" >> terraform.tfvars
             cat terraform.tfvars
           working_directory: ~/project/tf_trasversal/
       - run:
@@ -58,24 +55,37 @@ jobs:
             terraform apply -auto-approve tfapply 
           working_directory: ~/project/tf_trasversal/     
   BulidApp:
-    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
     docker:
-      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+      - image: cimg/go:1.17
+#        auth:
+#          username: mydockerhub-user
+#          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     # set resource class
     resource_class: small
-    # Add steps to the job
-    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
     steps:
-      - checkout     
+      - checkout
+      # ... steps for building/testing app ...
+
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+
+      # build and push Docker image
+      - run: |
+          docker build -t "Repo_$CIRCLE_PROJECT_REPONAME":$tag .
+          echo $registry_pass | docker login -u $registry_user --password-stdin
+          docker push $region.ocir.io/$namespace/Repo_$CIRCLE_PROJECT_REPONAME:$tag
+#          docker push CircleCI-Public/circleci-demo-docker:$TAG
+        working_directory: ~/project/tf_main/  
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   my-workflow:
     jobs:
-      - IaaC-OCI:
+#      - IaaC-OCI:
+#          context: 
+#            - tf-def
+      - BuildApp
           context: 
-            - tf-def
-#      - BuildApp
-        
+            - oci-resources 

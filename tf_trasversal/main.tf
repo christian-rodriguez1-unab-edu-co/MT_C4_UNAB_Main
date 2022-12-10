@@ -26,6 +26,10 @@ variable "namespace" {
   type = string
 }
 
+variable "CIRCLE_PROJECT_REPONAME" {
+  type = string
+}
+
 /* OCI */
 
 terraform {
@@ -229,12 +233,14 @@ provider "circleci" {
   organization = var.organization
 }
 
-resource "circleci_context" "oci-resources" {
-  name  = "oci-resources"
-}
-
 resource "circleci_context_environment_variable" "application_id" {
   variable   = "application_id"
   value      = oci_functions_application.application.id
-  context_id = circleci_context.oci-resources.id
+  context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
+}
+
+resource "circleci_context_environment_variable" "repo" {
+  variable   = "Repo_${var.CIRCLE_PROJECT_REPONAME}"
+  value      = oci_artifacts_container_repository.container_repository.display_name
+  context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
 }

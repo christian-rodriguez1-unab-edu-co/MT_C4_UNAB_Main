@@ -45,7 +45,7 @@ jobs:
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars
             echo "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" >> terraform.tfvars
-            echo "modules=["Main", 'Usuarios', 'Deportes', 'Eventos', 'Equipos', 'Marcadores']" >> terraform.tfvars
+            echo "modules=[\"Main\", \"Usuarios\", \"Deportes\", \"Eventos\", \"Equipos\", \"Marcadores\"]" >> terraform.tfvars
             cat terraform.tfvars
           working_directory: ~/project/tf_trasversal/
       - run:

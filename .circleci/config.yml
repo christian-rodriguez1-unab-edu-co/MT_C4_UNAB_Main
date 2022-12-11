@@ -74,6 +74,7 @@ jobs:
       - run:
           name: Docker Build & Push
           command: |
+            mkdir ./module
             cp ../module/* ./module/
             echo $registry_pass | docker login $region.ocir.io -u $registry_user --password-stdin
             repo="Repo_$CIRCLE_PROJECT_REPONAME"

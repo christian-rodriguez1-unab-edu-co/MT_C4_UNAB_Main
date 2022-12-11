@@ -23,13 +23,6 @@ jobs:
             echo "aws_secret_access_key=$aws_secret_access_key" >> terraform-states_bucket_credentials
             cat terraform-states_bucket_credentials
           working_directory: ~/project/tf_trasversal/
-#      - run:
-#          name: "create oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem"
-#          command: |
-#            cd ~/project/tf_trasversal/
-#            set -x
-#            echo "$private_key" >> oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem
-#            cat oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem
       - run:
           name: create terrafom.tfvars
           command: |
@@ -57,9 +50,6 @@ jobs:
   BuildApp:
     docker:
       - image: cimg/go:1.17
-#        auth:
-#          username: mydockerhub-user
-#          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     # set resource class
     resource_class: small
     steps:
@@ -100,7 +90,7 @@ jobs:
             echo "aws_access_key_id=$aws_access_key_id" >> terraform-states_bucket_credentials
             echo "aws_secret_access_key=$aws_secret_access_key" >> terraform-states_bucket_credentials
             cat terraform-states_bucket_credentials
-          working_directory: ~/project/tf_trasversal/
+          working_directory: ~/project/tf_main/
       - run:
           name: create terrafom.tfvars
           command: |
@@ -111,9 +101,9 @@ jobs:
             echo "fingerprint=$fingerprint" >> terraform.tfvars
             echo "private_key_path=$private_key_path" >> terraform.tfvars
             echo "application_id=$application_id" >> terraform.tfvars
-            repo="Repo_$CIRCLE_PROJECT_REPONAME"
-#            echo "module=${!repo}"
-#            echo "function_image=$region.ocir.io/$namespace/${!repo}:$tag"
+            repo= "Repo_$CIRCLE_PROJECT_REPONAME"
+            echo "module=${!repo}"
+            echo "function_image=$region.ocir.io/$namespace/${!repo}:$tag"
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars
@@ -127,7 +117,7 @@ jobs:
             terraform init -input=false
             terraform plan -out tfapply -var-file terraform.tfvars
             terraform apply -auto-approve tfapply 
-          working_directory: ~/project/tf_trasversal/     
+          working_directory: ~/project/tf_main/     
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:

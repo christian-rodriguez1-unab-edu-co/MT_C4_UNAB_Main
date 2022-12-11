@@ -44,6 +44,7 @@ jobs:
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars
+            echo 'modules=["Main", "Usuarios", "Deportes", "Eventos", "Equipos", "Marcadores"]' >> terraform.tfvars
             echo "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" >> terraform.tfvars
             cat terraform.tfvars
           working_directory: ~/project/tf_trasversal/
@@ -74,15 +75,61 @@ jobs:
       - run:
           name: Docker Build & Push
           command: |
-            echo $registry_pass | docker login sa-saopaulo-1.ocir.io -u $registry_user --password-stdin
-            pwd
+            cp ../module/* ./module/
+            echo $registry_pass | docker login $region.ocir.io -u $registry_user --password-stdin
             repo="Repo_$CIRCLE_PROJECT_REPONAME"
             docker build -t $region.ocir.io/$namespace/${!repo}:$tag .
-            docker images 
             docker push $region.ocir.io/$namespace/${!repo}:$tag
 #          docker push CircleCI-Public/circleci-demo-docker:$TAG
           working_directory: ~/project/tf_main/  
+  DeployFn:
+    # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
+    # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    # set resource class
+    resource_class: small
+    # Add steps to the job
+    # See: https://circleci.com/docs/2.0/configuration-reference/#steps
+    steps:
+      - checkout
+      - run:
+          name: create terraform-states_bucket_credentials
+          command: |
+            echo "[default]" >> terraform-states_bucket_credentials
+            echo "aws_access_key_id=$aws_access_key_id" >> terraform-states_bucket_credentials
+            echo "aws_secret_access_key=$aws_secret_access_key" >> terraform-states_bucket_credentials
+            cat terraform-states_bucket_credentials
+          working_directory: ~/project/tf_trasversal/
+      - run:
+          name: create terrafom.tfvars
+          command: |
+            echo "#Provider OCI" >> terraform.tfvars
+            echo "region=$region" >> terraform.tfvars
+            echo "tenancy_ocid=$tenancy_ocid" >> terraform.tfvars
+            echo "user_ocid=$user_ocid" >> terraform.tfvars
+            echo "fingerprint=$fingerprint" >> terraform.tfvars
+            echo "private_key_path=$private_key_path" >> terraform.tfvars
 
+            echo "application_id=$application_id" >> terraform.tfvars
+            repo="Repo_$CIRCLE_PROJECT_REPONAME"
+            echo "module=${!repo}"
+            echo "function_image=$region.ocir.io/$namespace/${!repo}:$tag"
+
+            echo "#Provider CircleCI" >> terraform.tfvars
+            echo "api_token=$api_token" >> terraform.tfvars
+            echo "organization=$organization" >> terraform.tfvars
+            echo 'modules=["Main", "Usuarios", "Deportes", "Eventos", "Equipos", "Marcadores"]' >> terraform.tfvars
+            echo "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" >> terraform.tfvars
+            cat terraform.tfvars
+          working_directory: ~/project/tf_main/
+      - run:
+          name: terraform init, plan, apply
+          command: |
+            terraform init -input=false
+            terraform plan -out tfapply -var-file terraform.tfvars
+            terraform apply -auto-approve tfapply 
+          working_directory: ~/project/tf_trasversal/     
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -93,4 +140,9 @@ workflows:
 #            - tf-def
       - BuildApp:
           context: 
-            - oci-resources 
+            - oci-resources
+      - DeployFn:
+          context:
+            - tf-def
+            - oci-resources
+            - endpoints

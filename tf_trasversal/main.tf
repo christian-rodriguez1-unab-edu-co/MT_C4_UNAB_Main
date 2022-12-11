@@ -30,7 +30,9 @@ variable "CIRCLE_PROJECT_REPONAME" {
   type = string
 }
 
-/* OCI */
+variable "modules" {
+  type = list(string)
+}
 
 terraform {
   backend "s3" {
@@ -174,9 +176,10 @@ resource "oci_core_security_list" "security_list" {
 /* Functions */
 
 resource "oci_artifacts_container_repository" "container_repository" {
+    for_each   = toset(var.modules)
     #Required
     compartment_id = var.compartment_ocid
-    display_name = "registry-def"
+    display_name = lower("${each.key}")
 
     #Optional
     is_immutable = false
@@ -240,8 +243,9 @@ resource "circleci_context_environment_variable" "application_id" {
 }
 
 resource "circleci_context_environment_variable" "repo" {
-  variable   = "Repo_${var.CIRCLE_PROJECT_REPONAME}"
-  value      = oci_artifacts_container_repository.container_repository.display_name
+  for_each   = toset(var.modules)
+  variable   = "Repo_MT_C4_UNAB_${each.key}"
+  value      = lower(each.key)
   context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
 }
 

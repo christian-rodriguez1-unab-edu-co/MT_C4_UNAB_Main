@@ -26,10 +26,6 @@ variable "namespace" {
   type = string
 }
 
-variable "CIRCLE_PROJECT_REPONAME" {
-  type = string
-}
-
 variable "modules" {
   type = list(string)
 }

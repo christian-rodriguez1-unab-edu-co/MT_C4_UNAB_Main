@@ -107,7 +107,7 @@ jobs:
             echo "function_image=\"$region.ocir.io/$namespace/${repo}:$tag\"" >> terraform.tfvars
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
-            echo "organization=\"$organization\"" >> terraform.tfvars
+            echo "organization=$organization" >> terraform.tfvars
             echo "CIRCLE_PROJECT_REPONAME=\"$CIRCLE_PROJECT_REPONAME\"" >> terraform.tfvars
             pwd
             cat terraform.tfvars

@@ -101,7 +101,7 @@ jobs:
             echo "fingerprint=$fingerprint" >> terraform.tfvars
             echo "application_id=\"$application_id\"" >> terraform.tfvars
             repo="Repo_$CIRCLE_PROJECT_REPONAME"
-            repo=eval echo \$$repo
+            repo=$(eval echo \$$repo)
             echo $repo
             echo "${echo 'Repo_${CIRCLE_PROJECT_REPONAME}'}"
             echo "module=${repo}" >> terraform.tfvars

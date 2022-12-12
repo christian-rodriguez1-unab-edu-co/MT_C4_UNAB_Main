@@ -92,12 +92,28 @@ resource "oci_apigateway_deployment" "deployment" {
   #Required
   compartment_id = var.compartment_ocid
   gateway_id     = var.gateway_id
-  display_name = "main-deployment"
+  display_name   = "main-deployment"
   path_prefix    = "/"
   specification {
+    #Optional
+    logging_policies {
+
+      #Optional
+      access_log {
+
+        #Optional
+        is_enabled = true
+      }
+      execution_log {
+
+        #Optional
+        is_enabled = true
+        log_level  = "INFO"
+      }
+    }
     routes {
       backend {
-        type       = "ORACLE_FUNCTIONS_BACKEND"
+        type        = "ORACLE_FUNCTIONS_BACKEND"
         function_id = oci_functions_function.function.id
       }
       path    = "/hello"

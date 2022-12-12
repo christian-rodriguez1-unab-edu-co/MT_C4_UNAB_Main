@@ -96,11 +96,11 @@ jobs:
           command: |
             echo "#Provider OCI" >> terraform.tfvars
             echo "region=\"$region\"" >> terraform.tfvars
-            echo "tenancy_ocid=\"$tenancy_ocid\"" >> terraform.tfvars
+            echo "tenancy_ocid=$tenancy_ocid" >> terraform.tfvars
             echo "user_ocid=\"$user_ocid\"" >> terraform.tfvars
             echo "fingerprint=\"$fingerprint\"" >> terraform.tfvars
             echo "application_id=\"$application_id\"" >> terraform.tfvars
-            echo "private_key_path=\"$private_key_path\"" >> terraform.tfvars
+            echo "private_key_path=$private_key_path" >> terraform.tfvars
             repo="Repo_$CIRCLE_PROJECT_REPONAME"
             repo=$(eval echo \$$repo)
             echo "module=\"${repo}\"" >> terraform.tfvars

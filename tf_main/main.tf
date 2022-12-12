@@ -93,7 +93,7 @@ resource "oci_apigateway_deployment" "deployment" {
   compartment_id = var.compartment_ocid
   gateway_id     = var.gateway_id
   display_name = "main-deployment"
-  path_prefix    = ""
+  path_prefix    = "/"
   specification {
     routes {
       backend {

@@ -111,11 +111,13 @@ jobs:
             echo "organization=$organization" >> terraform.tfvars
             echo "modules=[\"Main\", \"Usuarios\", \"Deportes\", \"Eventos\", \"Equipos\", \"Marcadores\"]" >> terraform.tfvars
             echo "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" >> terraform.tfvars
+            pwd
             cat terraform.tfvars
           working_directory: ~/project/tf_main/
       - run:
           name: terraform init, plan, apply
           command: |
+            pwd
             terraform init -input=false
             terraform plan -out tfapply -var-file terraform.tfvars
             terraform apply -auto-approve tfapply 

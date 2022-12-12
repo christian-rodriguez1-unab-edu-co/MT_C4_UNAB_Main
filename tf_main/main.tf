@@ -14,6 +14,10 @@ variable "fingerprint" {
   type = string
 }
 
+variable "private_key_path" {
+  type = string
+}
+
 variable "application_id" {
   type = string
 }
@@ -22,9 +26,10 @@ variable "module" {
   type = string
 }
 
-variable "private_key_path" {
+variable "function_image" {
   type = string
 }
+
 
 
 terraform {

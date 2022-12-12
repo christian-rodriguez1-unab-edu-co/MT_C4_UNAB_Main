@@ -100,7 +100,7 @@ jobs:
             echo "user_ocid=$user_ocid" >> terraform.tfvars
             echo "fingerprint=$fingerprint" >> terraform.tfvars
             echo "application_id=\"$application_id\"" >> terraform.tfvars
-            echo "private_key_path = \"oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem\"" >> terraform.tfvars
+            echo "private_key_path = oracleidentitycloudservice_christian.rodriguez.mt-12-08-20-39.pem" >> terraform.tfvars
             repo="Repo_$CIRCLE_PROJECT_REPONAME"
             repo=$(eval echo \$$repo)
             echo "module=\"${repo}\"" >> terraform.tfvars

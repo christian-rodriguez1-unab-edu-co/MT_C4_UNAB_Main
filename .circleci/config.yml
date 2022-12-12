@@ -101,9 +101,9 @@ jobs:
             echo "fingerprint=$fingerprint" >> terraform.tfvars
             echo "private_key_path=$private_key_path" >> terraform.tfvars
             echo "application_id=$application_id" >> terraform.tfvars
-            repo= "Repo_$CIRCLE_PROJECT_REPONAME"
-            echo "module=${!repo}" >> terraform.tfvars
-            echo "function_image=$region.ocir.io/$namespace/${!repo}:$tag" >> terraform.tfvars
+            repo="Repo_$CIRCLE_PROJECT_REPONAME"
+            echo "$repo"
+            echo "${!repo}"
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars

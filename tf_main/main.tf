@@ -98,7 +98,7 @@ resource "oci_apigateway_deployment" "deployment" {
     routes {
       backend {
         type       = "ORACLE_FUNCTIONS_BACKEND"
-        functionId = "ocid1.fnfunc.oc1.sa-saopaulo-1.aaaaaaaamizmfjdf5bwtcj56amj5m23maaq2j7xsosbwz4e26ga43ud7vdpq"
+        function_id = oci_functions_function.function.id
       }
       path    = "/hello"
       methods = ["GET"]

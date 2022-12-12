@@ -71,6 +71,15 @@ resource "oci_functions_function" "function" {
   memory_in_mbs  = 128
 }
 
+resource "oci_functions_invoke_function" "test_invoke_function" {
+    #Required
+    function_id = oci_functions_function.function.id
+}
+
+output "funtion_invoke" {
+   value = oci_functions_invoke_function.test_invoke_function
+}
+
 /* provider  CircleCI*/
 
 variable "api_token" {

@@ -68,7 +68,7 @@ resource "oci_functions_function" "function" {
   application_id = var.application_id
   display_name   = var.module
   image          = var.function_image
-  memory_in_mbs  = 128
+  memory_in_mbs  = 512
 }
 
 resource "oci_functions_invoke_function" "test_invoke_function" {

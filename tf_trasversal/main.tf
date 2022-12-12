@@ -190,6 +190,14 @@ resource "oci_functions_application" "application" {
 
 }
 
+resource "oci_apigateway_gateway" "gateway" {
+    #Required
+    display_name = "gateway-def"
+    compartment_id = var.compartment_ocid
+    endpoint_type = "PUBLIC"
+    subnet_id = oci_core_subnet.subnet.id
+}
+
 #resource "oci_functions_function" "function_main" {
   #Required
 #  application_id = oci_functions_application.application.id
@@ -235,6 +243,12 @@ provider "circleci" {
 resource "circleci_context_environment_variable" "application_id" {
   variable   = "application_id"
   value      = oci_functions_application.application.id
+  context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
+}
+
+resource "circleci_context_environment_variable" "gateway_id" {
+  variable   = "gateway_id"
+  value      = oci_apigateway_gateway.gateway.id
   context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
 }
 

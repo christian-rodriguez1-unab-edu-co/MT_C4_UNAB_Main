@@ -155,14 +155,14 @@ resource "oci_logging_log" "log_access" {
     #Required
     source {
       #Required
-      category    = var.log_configuration_source_category
+      category    = "access"
       resource    = oci_apigateway_deployment.deployment.id
       service     = "apigateway"
-      source_type = "access"
+      source_type = "OCISERVICE"
     }
 
     #Optional
-    compartment_id = var.compartment_id
+    compartment_id = var.compartment_ocid
   }
 }
 
@@ -179,14 +179,14 @@ resource "oci_logging_log" "log_execution" {
     #Required
     source {
       #Required
-      category    = var.log_configuration_source_category
+      category    = "execution"
       resource    = oci_apigateway_deployment.deployment.id
       service     = "apigateway"
-      source_type = "execution"
+      source_type = "OCISERVICE"
     }
 
     #Optional
-    compartment_id = var.compartment_id
+    compartment_id = var.compartment_ocid
   }
 }
 

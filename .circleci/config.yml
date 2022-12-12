@@ -102,8 +102,6 @@ jobs:
             echo "application_id=\"$application_id\"" >> terraform.tfvars
             repo="Repo_$CIRCLE_PROJECT_REPONAME"
             repo=$(eval echo \$$repo)
-            echo $repo
-            echo "${echo 'Repo_${CIRCLE_PROJECT_REPONAME}'}"
             echo "module=${repo}" >> terraform.tfvars
             echo "function_image=\"$region.ocir.io/$namespace/${repo}:$tag\"" >> terraform.tfvars
             echo "#Provider CircleCI" >> terraform.tfvars

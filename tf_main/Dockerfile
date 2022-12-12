@@ -1,19 +1,11 @@
-FROM node:16
-
-# Create app directory
-WORKDIR /usr/src/app
-
+FROM node:14
+#Create a working directory
+WORKDIR /function
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY ./module/package*.json ./
-
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
-
-# Bundle app source
-COPY ./module/* ./
-
-EXPOSE 80
-CMD [ "node", "server.js" ]
+# Copy all artifacts including generated ones
+COPY ./module/* /function/
+CMD [ "node", "func.js" ]

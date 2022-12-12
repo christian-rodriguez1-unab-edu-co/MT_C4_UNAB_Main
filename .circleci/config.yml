@@ -96,18 +96,19 @@ jobs:
           command: |
             echo "#Provider OCI" >> terraform.tfvars
             echo "region=\"$region\"" >> terraform.tfvars
-            echo "tenancy_ocid=$tenancy_ocid" >> terraform.tfvars
-            echo "user_ocid=$user_ocid" >> terraform.tfvars
-            echo "fingerprint=$fingerprint" >> terraform.tfvars
+            echo "tenancy_ocid=\"$tenancy_ocid\"" >> terraform.tfvars
+            echo "user_ocid=\"$user_ocid\"" >> terraform.tfvars
+            echo "fingerprint=\"$fingerprint\"" >> terraform.tfvars
             echo "application_id=\"$application_id\"" >> terraform.tfvars
+            echo "private_key_path=\"$private_key_path\"" >> terraform.tfvars
             repo="Repo_$CIRCLE_PROJECT_REPONAME"
             repo=$(eval echo \$$repo)
             echo "module=\"${repo}\"" >> terraform.tfvars
             echo "function_image=\"$region.ocir.io/$namespace/${repo}:$tag\"" >> terraform.tfvars
             echo "#Provider CircleCI" >> terraform.tfvars
-            echo "api_token=$api_token" >> terraform.tfvars
-            echo "organization=$organization" >> terraform.tfvars
-            echo "CIRCLE_PROJECT_REPONAME=$CIRCLE_PROJECT_REPONAME" >> terraform.tfvars
+            echo "api_token=\"$api_token\"" >> terraform.tfvars
+            echo "organization=\"$organization\"" >> terraform.tfvars
+            echo "CIRCLE_PROJECT_REPONAME=\"$CIRCLE_PROJECT_REPONAME\"" >> terraform.tfvars
             pwd
             cat terraform.tfvars
           working_directory: ~/project/tf_main/

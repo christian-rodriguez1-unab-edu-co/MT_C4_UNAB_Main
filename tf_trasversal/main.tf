@@ -190,6 +190,14 @@ resource "oci_functions_application" "application" {
 
 }
 
+#resource "oci_functions_function" "function_main" {
+  #Required
+#  application_id = oci_functions_application.application.id
+#  display_name   = "function_main"
+#  image          = var.function_image
+#  memory_in_mbs  = 128
+#}
+
 resource "oci_apigateway_gateway" "gateway" {
     #Required
     display_name = "gateway-def"
@@ -198,13 +206,11 @@ resource "oci_apigateway_gateway" "gateway" {
     subnet_id = oci_core_subnet.subnet.id
 }
 
-#resource "oci_functions_function" "function_main" {
-  #Required
-#  application_id = oci_functions_application.application.id
-#  display_name   = "function_main"
-#  image          = var.function_image
-#  memory_in_mbs  = 128
-#}
+resource "oci_logging_log_group" "test_log_group" {
+    #Required
+    compartment_id = var.compartment_ocid
+    display_name = "loggroup-def"
+}
 
 /* Functions */
 

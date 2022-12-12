@@ -116,6 +116,21 @@ resource "oci_apigateway_deployment" "deployment" {
         type        = "ORACLE_FUNCTIONS_BACKEND"
         function_id = oci_functions_function.function.id
       }
+      logging_policies {
+
+        #Optional
+        access_log {
+
+          #Optional
+          is_enabled = true
+        }
+        execution_log {
+
+          #Optional
+          is_enabled = true
+          log_level  = "INFO"
+        }
+      }
       path    = "/hello"
       methods = ["GET"]
 

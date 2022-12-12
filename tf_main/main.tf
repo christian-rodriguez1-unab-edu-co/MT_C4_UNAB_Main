@@ -26,6 +26,10 @@ variable "gateway_id" {
   type = string
 }
 
+variable "compartment_ocid" {
+  type = string
+}
+
 variable "module" {
   type = string
 }

@@ -26,6 +26,10 @@ variable "gateway_id" {
   type = string
 }
 
+variable "loggroup_id" {
+  type = string
+}
+
 variable "compartment_ocid" {
   type = string
 }
@@ -137,6 +141,16 @@ resource "oci_apigateway_deployment" "deployment" {
     }
   }
 }
+
+resource "oci_logging_log" "test_log" {
+    #Required
+    display_name = oci_apigateway_deployment.deployment.display_name
+    log_group_id = var.loggroup_id
+    log_type = "SERVICE"
+    is_enabled = true
+    retention_duration = 30
+}
+
 /* provider  CircleCI*/
 
 variable "api_token" {

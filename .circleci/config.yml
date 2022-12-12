@@ -101,6 +101,7 @@ jobs:
             echo "fingerprint=$fingerprint" >> terraform.tfvars
             echo "application_id=\"$application_id\"" >> terraform.tfvars
             echo "gateway_id=\"$gateway_id\"" >> terraform.tfvars
+            echo "loggroup_id=\"$loggroup_id\"" >> terraform.tfvars
             echo "compartment_ocid=$compartment_ocid" >> terraform.tfvars
             echo "private_key_path=$private_key_path" >> terraform.tfvars
             repo="Repo_$CIRCLE_PROJECT_REPONAME"

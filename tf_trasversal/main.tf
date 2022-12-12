@@ -206,7 +206,7 @@ resource "oci_apigateway_gateway" "gateway" {
     subnet_id = oci_core_subnet.subnet.id
 }
 
-resource "oci_logging_log_group" "test_log_group" {
+resource "oci_logging_log_group" "log_group" {
     #Required
     compartment_id = var.compartment_ocid
     display_name = "loggroup-def"
@@ -255,6 +255,12 @@ resource "circleci_context_environment_variable" "application_id" {
 resource "circleci_context_environment_variable" "gateway_id" {
   variable   = "gateway_id"
   value      = oci_apigateway_gateway.gateway.id
+  context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
+}
+
+resource "circleci_context_environment_variable" "loggroup_id" {
+  variable   = "loggroup_id"
+  value      = oci_logging_log_group.log_group.id
   context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
 }
 

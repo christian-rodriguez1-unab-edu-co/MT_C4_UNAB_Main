@@ -22,9 +22,10 @@ variable "module" {
   type = string
 }
 
-variable "function_image" {
+variable "private_key_path" {
   type = string
 }
+
 
 terraform {
   backend "s3" {

@@ -34,10 +34,10 @@ variable "function_image" {
 
 terraform {
   backend "s3" {
-    bucket   = "terraform-states"
-    key      = "tf_main/terraform.tfstate"
-    region   = "sa-saopaulo-1"
-    endpoint = "https://grkog4hnhyhj.compat.objectstorage.sa-saopaulo-1.oraclecloud.com"
+    bucket                      = "terraform-states"
+    key                         = "tf_main/terraform.tfstate"
+    region                      = "sa-saopaulo-1"
+    endpoint                    = "https://grkog4hnhyhj.compat.objectstorage.sa-saopaulo-1.oraclecloud.com"
     shared_credentials_file     = "./terraform-states_bucket_credentials"
     skip_region_validation      = true
     skip_credentials_validation = true
@@ -45,9 +45,9 @@ terraform {
     force_path_style            = true
   }
 
-   required_providers {
+  required_providers {
     circleci = {
-      source = "mrolla/circleci"
+      source  = "mrolla/circleci"
       version = "0.6.1"
     }
   }
@@ -72,14 +72,32 @@ resource "oci_functions_function" "function" {
 }
 
 resource "oci_functions_invoke_function" "test_invoke_function" {
-    #Required
-    function_id = oci_functions_function.function.id
+  #Required
+  function_id = oci_functions_function.function.id
 }
 
 output "funtion_invoke" {
-   value = oci_functions_invoke_function.test_invoke_function
+  value = oci_functions_invoke_function.test_invoke_function
 }
 
+resource "oci_apigateway_deployment" "deployment" {
+  #Required
+  compartment_id = var.compartment_id
+  gateway_id     = oci_apigateway_gateway.test_gateway.id
+  display_name = "main-deployment"
+  path_prefix    = var.deployment_path_prefix
+  specification {
+    routes {
+      backend {
+        type       = "ORACLE_FUNCTIONS_BACKEND"
+        functionId = "ocid1.fnfunc.oc1.sa-saopaulo-1.aaaaaaaamizmfjdf5bwtcj56amj5m23maaq2j7xsosbwz4e26ga43ud7vdpq"
+      }
+      path    = "/hello"
+      methods = ["GET"]
+
+    }
+  }
+}
 /* provider  CircleCI*/
 
 variable "api_token" {
@@ -102,5 +120,5 @@ resource "circleci_context_environment_variable" "enpdoint" {
   context_id = "3d0e7283-446b-482e-8c74-fbaad2f2525e"
 
   #Optional
-#  config = var.function_config
+  #  config = var.function_config
 }

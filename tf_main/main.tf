@@ -35,7 +35,7 @@ variable "function_image" {
 terraform {
   backend "s3" {
     bucket   = "terraform-states"
-    key      = "tf_trasversal/terraform.tfstate"
+    key      = "tf_main/terraform.tfstate"
     region   = "sa-saopaulo-1"
     endpoint = "https://grkog4hnhyhj.compat.objectstorage.sa-saopaulo-1.oraclecloud.com"
     shared_credentials_file     = "./terraform-states_bucket_credentials"

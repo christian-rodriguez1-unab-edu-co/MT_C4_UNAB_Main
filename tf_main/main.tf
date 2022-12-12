@@ -142,13 +142,52 @@ resource "oci_apigateway_deployment" "deployment" {
   }
 }
 
-resource "oci_logging_log" "test_log" {
+resource "oci_logging_log" "log_access" {
+  #Required
+  display_name       = "${oci_apigateway_deployment.deployment.display_name}_access"
+  log_group_id       = var.loggroup_id
+  log_type           = "SERVICE"
+  is_enabled         = true
+  retention_duration = 30
+
+  #Optional
+  configuration {
     #Required
-    display_name = oci_apigateway_deployment.deployment.display_name
-    log_group_id = var.loggroup_id
-    log_type = "SERVICE"
-    is_enabled = true
-    retention_duration = 30
+    source {
+      #Required
+      category    = var.log_configuration_source_category
+      resource    = oci_apigateway_deployment.deployment.id
+      service     = "apigateway"
+      source_type = "access"
+    }
+
+    #Optional
+    compartment_id = var.compartment_id
+  }
+}
+
+resource "oci_logging_log" "log_execution" {
+  #Required
+  display_name       = "${oci_apigateway_deployment.deployment.display_name}_execution"
+  log_group_id       = var.loggroup_id
+  log_type           = "SERVICE"
+  is_enabled         = true
+  retention_duration = 30
+
+  #Optional
+  configuration {
+    #Required
+    source {
+      #Required
+      category    = var.log_configuration_source_category
+      resource    = oci_apigateway_deployment.deployment.id
+      service     = "apigateway"
+      source_type = "execution"
+    }
+
+    #Optional
+    compartment_id = var.compartment_id
+  }
 }
 
 /* provider  CircleCI*/

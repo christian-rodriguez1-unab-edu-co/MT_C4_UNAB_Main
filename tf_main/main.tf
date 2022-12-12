@@ -22,6 +22,10 @@ variable "application_id" {
   type = string
 }
 
+variable "gateway_id" {
+  type = string
+}
+
 variable "module" {
   type = string
 }
@@ -82,10 +86,10 @@ output "funtion_invoke" {
 
 resource "oci_apigateway_deployment" "deployment" {
   #Required
-  compartment_id = var.compartment_id
-  gateway_id     = oci_apigateway_gateway.test_gateway.id
+  compartment_id = var.compartment_ocid
+  gateway_id     = var.gateway_id
   display_name = "main-deployment"
-  path_prefix    = var.deployment_path_prefix
+  path_prefix    = ""
   specification {
     routes {
       backend {

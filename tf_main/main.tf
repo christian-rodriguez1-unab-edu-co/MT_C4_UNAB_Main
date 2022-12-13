@@ -146,8 +146,8 @@ resource "oci_apigateway_deployment" "weather-deployment" {
   #Required
   compartment_id = var.compartment_ocid
   gateway_id     = var.gateway_id
-  display_name   = "main-deployment"
-  path_prefix    = "/wather"
+  display_name   = "weather-deployment"
+  path_prefix    = "/weather"
   specification {
     #Optional
     logging_policies {

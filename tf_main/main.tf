@@ -92,7 +92,7 @@ output "funtion_invoke" {
   value = oci_functions_invoke_function.test_invoke_function
 }
 
-resource "oci_apigateway_deployment" "deployment" {
+resource "oci_apigateway_deployment" "main-deployment" {
   #Required
   compartment_id = var.compartment_ocid
   gateway_id     = var.gateway_id
@@ -136,6 +136,56 @@ resource "oci_apigateway_deployment" "deployment" {
         }
       }
       path    = "/hello"
+      methods = ["GET"]
+
+    }
+  }
+}
+
+resource "oci_apigateway_deployment" "weather-deployment" {
+  #Required
+  compartment_id = var.compartment_ocid
+  gateway_id     = var.gateway_id
+  display_name   = "main-deployment"
+  path_prefix    = "/"
+  specification {
+    #Optional
+    logging_policies {
+
+      #Optional
+      access_log {
+
+        #Optional
+        is_enabled = true
+      }
+      execution_log {
+
+        #Optional
+        is_enabled = true
+        log_level  = "INFO"
+      }
+    }
+    routes {
+      backend {
+        type        = "HTTP_BACKEND"
+        url = "https://api.weather.gov"
+      }
+      logging_policies {
+
+        #Optional
+        access_log {
+
+          #Optional
+          is_enabled = true
+        }
+        execution_log {
+
+          #Optional
+          is_enabled = true
+          log_level  = "INFO"
+        }
+      }
+      path    = "/weather"
       methods = ["GET"]
 
     }

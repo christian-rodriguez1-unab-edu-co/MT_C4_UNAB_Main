@@ -92,7 +92,7 @@ output "funtion_invoke" {
   value = oci_functions_invoke_function.test_invoke_function
 }
 
-resource "oci_apigateway_deployment" "main-deployment" {
+resource "oci_apigateway_deployment" "deployment" {
   #Required
   compartment_id = var.compartment_ocid
   gateway_id     = var.gateway_id

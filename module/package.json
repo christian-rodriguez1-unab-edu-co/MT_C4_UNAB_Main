@@ -1,21 +1,21 @@
 {
-	"name": "node-sample-docker-fn",
-	"version": "0.0.1",
-	"description": "NodeJS Code for Oracle Fn to be created with Docker Image",
-	"main": "func.js",
-	"author": "Pathikreet Dutta",
-	"license": "Apache-2.0",
-	"dependencies": {
-	  "@fnproject/fdk": ">=0.0.19",
-	  "fs": "0.0.1-security",
-	  "node-forge": "^0.10.0"
-	},
-	"bundledDependencies": [
-	  "node-forge",
-	  "fs"
-	],
-	"config": {
-	  "bin": "bin",
-	  "name": "NodeDockerSampleFn"
-	}
+  "name": "marcadores_deportivos",
+  "version": "1.0.0",
+  "description": "APIs Aplicación MarcadoresDeportivos",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "author": "Grupo3",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "md5": "^2.3.0",
+    "mongoose": "^6.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
   }
+}

@@ -11,3 +11,5 @@
 *credential*
 
 *.tfvars
+
+**/node_modules/*

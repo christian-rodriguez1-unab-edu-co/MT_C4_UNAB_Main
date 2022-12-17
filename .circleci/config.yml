@@ -46,7 +46,7 @@ jobs:
             terraform init -input=false
             terraform plan -out tfapply -var-file terraform.tfvars
 #            terraform apply -auto-approve tfapply 
-            terraform destroy -auto-approve
+            terraform destroy -auto-approve tfapply 
           working_directory: ~/project/tf_trasversal/     
   BuildApp:
     docker:

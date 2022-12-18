@@ -141,5 +141,5 @@ workflows:
             - tf-def
             - oci-resources
             - endpoints
-          requires:
-            - BuildApp
+#          requires:
+#            - BuildApp

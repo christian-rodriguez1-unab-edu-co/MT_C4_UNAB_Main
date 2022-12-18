@@ -131,11 +131,11 @@ workflows:
       - IaaC-OCI:
           context: 
             - tf-def
-      - BuildApp:
-          context: 
-            - oci-resources
-          requires:
-            - IaaC-OCI
+#      - BuildApp:
+#          context: 
+#            - oci-resources
+#          requires:
+#            - IaaC-OCI
       - DeployFn:
           context:
             - tf-def

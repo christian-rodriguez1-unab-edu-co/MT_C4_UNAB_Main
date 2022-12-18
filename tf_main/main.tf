@@ -75,6 +75,8 @@ provider "oci" {
   private_key_path = var.private_key_path
 }
 
+/*
+
 resource "oci_functions_function" "function" {
   #Required
   application_id = var.application_id
@@ -255,6 +257,7 @@ provider "circleci" {
   vcs_type     = "github"
   organization = var.organization
 }
+/*
 
 resource "circleci_context_environment_variable" "enpdoint" {
   variable   = var.module
@@ -264,3 +267,4 @@ resource "circleci_context_environment_variable" "enpdoint" {
   #Optional
   #  config = var.function_config
 }
+*/

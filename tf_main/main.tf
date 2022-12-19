@@ -133,8 +133,8 @@ resource "oci_container_instances_container_instance" "container_instance" {
     resource_config {
 
       #Optional
-      memory_limit_in_gbs = 2
-      vcpus_limit         = 1
+      memory_limit_in_gbs = 4
+      vcpus_limit         = 2
     }
     #volume_mounts {
     #Required
@@ -151,10 +151,10 @@ resource "oci_container_instances_container_instance" "container_instance" {
   shape = "CI.Standard.E4.Flex"
   shape_config {
     #Required
-    ocpus = 2
+    ocpus = 3
 
     #Optional
-    memory_in_gbs = 4
+    memory_in_gbs = 6
   }
   vnics {
     #Required

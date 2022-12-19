@@ -1,10 +1,10 @@
 //const jwt = require("jsonwebtoken");
 const usuarios = require('../models/usuarios')
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
     const username = req.header("Username");
     const token = req.header("Token");
-    const rol = req.header("Token");
+    const rol = req.header("Rol");
     //    const token = req.header("x-auth-token");
     console.log("init Middleware:" + token);
     if (!token) {
@@ -15,10 +15,9 @@ module.exports = function (req, res, next) {
         //        req.user = cifrado.user;
         //        next();
 
-        const usuario = usuarios.find({
-            Username: username,
-            Rol: rol
-        })
+        const usuario = await usuarios.find({Username: username, Rol: rol})
+
+        console.log(usuario['0'])
 
         if (usuario[0].Token == token) {
 
@@ -29,14 +28,17 @@ module.exports = function (req, res, next) {
                 }, {
                     Token_Timestamp: Date.now()
                 })
+
+                next();
+
             } else {
-                res.json({ message: "Token expirado" })
+                res.status(400).json({ message: "Token expirado" })
             }
 
         } else {
-            res.json({ message: "Token Invalido" })
+            res.status(400).json({ message: "Token Invalido" })
         }
-
+        
 
     } catch (error) {
 

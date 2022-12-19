@@ -1,23 +1,44 @@
-const {
-    request
-} = require('express')
 const md5 = require('MD5')
-const {
-    requestMD5
-} = require('MD5')
 const usuarios = require('../models/usuarios')
 
 
-///primera accion listar todos
-exports.list = async (req, res) => {
+///primera accion traer usaurio
+exports.findone = async (req, res) => {
 
     try {
-        const colUsuarios = await usuarios.find({Username: req.params.Username})
+        const colUsuarios = await usuarios.aggregate([
+            { 
+                $match: { 
+                    $expr: {
+                        $eq: [
+                            '$Username', req.params.username
+                        ]
+                    }
+                }
+            },
+/*
+            {
+                '$lookup': {
+                  'from': 'equipos', 
+                  'localField': 'Equipos_ID', 
+                  'foreignField': '_id', 
+                  'as': 'Equipos'
+                }
+              }, {
+                '$lookup': {
+                  'from': 'deportes', 
+                  'localField': 'Deportes_ID', 
+                  'foreignField': '_id', 
+                  'as': 'Deportes'
+                }
+              }
+*/
+          ])
+        
         res.json(colUsuarios)
     } catch (error) {
         console.log(error)
         res.send(error)
-        next()
     }
 }
 

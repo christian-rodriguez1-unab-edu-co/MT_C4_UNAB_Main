@@ -4,7 +4,7 @@ const router=express.Router()
 const marcadoresController=require('../controllers/marcadoresController')
 
     //llamado get de marcadores
-    router.get('/',authMiddleware, marcadoresController.list)
+    //router.get('/',authMiddleware, marcadoresController.list)
     
     //llamado post de marcadores
     router.post('/',authMiddleware, marcadoresController.add)

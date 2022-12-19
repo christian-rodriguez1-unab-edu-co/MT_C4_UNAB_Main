@@ -3,17 +3,17 @@ const authMiddleware = require("../middleware/authMiddleware")
 const router=express.Router()
 const usuariosController=require('../controllers/usuariosControler')
 
-    //llamado get users
-    router.get('/:Username',authMiddleware,usuariosController.list)
+    //llamado get user
+    router.get('/:username',authMiddleware,usuariosController.findone)
 
-    //llamado post users
+    //llamado post user
     router.post('/',authMiddleware,usuariosController.add)
 
-    //llamado put users
+    //llamado put user
     router.put('/:id',authMiddleware,usuariosController.update)
 
     
-    //llamado delete users
+    //llamado delete user
     router.delete('/:id',authMiddleware,usuariosController.delete)
 
     //validar  Token

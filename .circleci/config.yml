@@ -66,7 +66,7 @@ jobs:
           name: Docker Build & Push
           command: |
             mkdir ./module
-            cp ../module/* ./module/
+            cp ../module/ ./module/
             echo $registry_pass | docker login $region.ocir.io -u $registry_user --password-stdin
             repo="Repo_$CIRCLE_PROJECT_REPONAME"
             docker build -t $region.ocir.io/$namespace/${!repo}:$tag .
@@ -112,6 +112,7 @@ jobs:
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars
+            echo "subnet_ocid=$subnet" >> terraform.tfvars
             pwd
             cat terraform.tfvars
           working_directory: ~/project/tf_main/
@@ -131,15 +132,15 @@ workflows:
       - IaaC-OCI:
           context: 
             - tf-def
-#      - BuildApp:
-#          context: 
-#            - oci-resources
-#          requires:
-#            - IaaC-OCI
+      - BuildApp:
+          context: 
+            - oci-resources
+          requires:
+            - IaaC-OCI
       - DeployFn:
           context:
             - tf-def
             - oci-resources
             - endpoints
-#          requires:
-#            - BuildApp
+          requires:
+            - BuildApp

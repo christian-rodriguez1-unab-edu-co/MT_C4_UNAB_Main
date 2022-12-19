@@ -42,6 +42,12 @@ variable "function_image" {
   type = string
 }
 
+variable "subnet_ocid" {
+  type = string
+}
+
+
+
 
 
 terraform {
@@ -73,6 +79,129 @@ provider "oci" {
   user_ocid        = var.user_ocid
   fingerprint      = var.fingerprint
   private_key_path = var.private_key_path
+}
+
+/*Container*/
+
+resource "oci_container_instances_container_instance" "test_container_instance" {
+  #Required
+  availability_domain = "RgyX:SA-SAOPAULO-1-AD-1"
+  compartment_id      = var.compartment_ocid
+  containers {
+    #Required
+    image_url = var.function_image
+
+    #Optional
+    #additional_capabilities = var.container_instance_containers_additional_capabilities
+    #arguments = var.container_instance_containers_arguments
+    #command = var.container_instance_containers_command
+    #defined_tags = var.container_instance_containers_defined_tags
+    #display_name = var.container_instance_containers_display_name
+    #environment_variables = var.container_instance_containers_environment_variables
+    #freeform_tags = var.container_instance_containers_freeform_tags
+    #health_checks {
+    #Required
+    #health_check_type = var.container_instance_containers_health_checks_health_check_type
+
+    #Optional
+    #command = var.container_instance_containers_health_checks_command
+    #failure_action = var.container_instance_containers_health_checks_failure_action
+    #failure_threshold = var.container_instance_containers_health_checks_failure_threshold
+    #headers {
+
+    #Optional
+    #name = var.container_instance_containers_health_checks_headers_name
+    #value = var.container_instance_containers_health_checks_headers_value
+    #}
+    #initial_delay_in_seconds = var.container_instance_containers_health_checks_initial_delay_in_seconds
+    #interval_in_seconds = var.container_instance_containers_health_checks_interval_in_seconds
+    #name = var.container_instance_containers_health_checks_name
+    #path = var.container_instance_containers_health_checks_path
+    #port = var.container_instance_containers_health_checks_port
+    #success_threshold = var.container_instance_containers_health_checks_success_threshold
+    #timeout_in_seconds = var.container_instance_containers_health_checks_timeout_in_seconds
+    #}
+    #is_resource_principal_disabled = var.container_instance_containers_is_resource_principal_disabled
+    resource_config {
+
+      #Optional
+      memory_limit_in_gbs = 2
+      vcpus_limit         = 1
+    }
+    #volume_mounts {
+    #Required
+    #mount_path = var.container_instance_containers_volume_mounts_mount_path
+    #volume_name = var.container_instance_containers_volume_mounts_volume_name
+
+    #Optional
+    #is_read_only = var.container_instance_containers_volume_mounts_is_read_only
+    #partition = var.container_instance_containers_volume_mounts_partition
+    #sub_path = var.container_instance_containers_volume_mounts_sub_path
+    #}
+    #working_directory = var.container_instance_containers_working_directory
+  }
+  shape = 1
+  shape_config {
+    #Required
+    ocpus = 2
+
+    #Optional
+    memory_in_gbs = 4
+  }
+  vnics {
+    #Required
+    subnet_id = var.subnet_ocid
+
+    #Optional
+    #defined_tags = var.container_instance_vnics_defined_tags
+    #display_name = var.container_instance_vnics_display_name
+    #freeform_tags = var.container_instance_vnics_freeform_tags
+    #hostname_label = var.container_instance_vnics_hostname_label
+    #is_public_ip_assigned = var.container_instance_vnics_is_public_ip_assigned
+    #nsg_ids = var.container_instance_vnics_nsg_ids
+    #private_ip = var.container_instance_vnics_private_ip
+    #skip_source_dest_check = var.container_instance_vnics_skip_source_dest_check
+  }
+
+  #Optional
+  #container_restart_policy = var.container_instance_container_restart_policy
+  #defined_tags = {"foo-namespace.bar-key"= "value"}
+  display_name = "intance-backend"
+  #dns_config {
+
+  #Optional
+  #nameservers = var.container_instance_dns_config_nameservers
+  #options = var.container_instance_dns_config_options
+  #searches = var.container_instance_dns_config_searches
+  #}
+  #fault_domain = var.container_instance_fault_domain
+  #freeform_tags = {"bar-key"= "value"}
+  #graceful_shutdown_timeout_in_seconds = var.container_instance_graceful_shutdown_timeout_in_seconds
+  #image_pull_secrets {
+  #Required
+  #registry_endpoint = var.container_instance_image_pull_secrets_registry_endpoint
+  #secret_type = var.container_instance_image_pull_secrets_secret_type
+
+  #Optional
+  #password = var.container_instance_image_pull_secrets_password
+  #secret_id = oci_vault_secret.test_secret.id
+  #username = var.container_instance_image_pull_secrets_username
+  #}
+  #volumes {
+  #Required
+  #name = var.container_instance_volumes_name
+  #volume_type = var.container_instance_volumes_volume_type
+
+  #Optional
+  #backing_store = var.container_instance_volumes_backing_store
+  #configs {
+
+  #Optional
+  #data = var.container_instance_volumes_configs_data
+  #file_name = var.container_instance_volumes_configs_file_name
+  #path = var.container_instance_volumes_configs_path
+  #}
+  #}
 }
 
 /*

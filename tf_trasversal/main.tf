@@ -169,7 +169,7 @@ resource "oci_core_security_list" "security_list" {
 #  }
 }
 
-/* Functions */
+/* Containers */
 
 resource "oci_artifacts_container_repository" "container_repository" {
     for_each   = toset(var.modules)
@@ -182,6 +182,7 @@ resource "oci_artifacts_container_repository" "container_repository" {
 #    is_public = true
 }
 
+/*
 resource "oci_functions_application" "application" {
   #Required
   compartment_id = var.compartment_ocid
@@ -212,7 +213,9 @@ resource "oci_logging_log_group" "log_group" {
     display_name = "loggroup-def"
 }
 
-/* Functions */
+*/
+
+/* Buckets */
 
 resource "oci_objectstorage_bucket" "private_bucket" {
     #Required
@@ -246,6 +249,7 @@ provider "circleci" {
   organization = var.organization
 }
 
+/*
 resource "circleci_context_environment_variable" "application_id" {
   variable   = "application_id"
   value      = oci_functions_application.application.id
@@ -264,6 +268,8 @@ resource "circleci_context_environment_variable" "loggroup_id" {
   context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
 }
 
+*/
+
 resource "circleci_context_environment_variable" "repo" {
   for_each   = toset(var.modules)
   variable   = "Repo_MT_C4_UNAB_${each.key}"
@@ -280,5 +286,11 @@ resource "circleci_context_environment_variable" "namespace" {
 resource "circleci_context_environment_variable" "region" {
   variable   = "region"
   value      = var.region
+  context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
+}
+
+resource "circleci_context_environment_variable" "region" {
+  variable   = "subnet"
+  value      = oci_core_subnet.subnet.id
   context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
 }

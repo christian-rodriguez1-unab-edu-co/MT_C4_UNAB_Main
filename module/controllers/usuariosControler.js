@@ -1,4 +1,4 @@
-const md5 = require('MD5')
+const md5 = require('md5')
 const usuarios = require('../models/usuarios')
 
 

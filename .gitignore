@@ -6,6 +6,8 @@
 *.tfstate
 *.tfstate.*
 
+**package-lock*
+
 .terraform.*
 
 *credential*

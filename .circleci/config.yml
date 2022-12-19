@@ -67,7 +67,6 @@ jobs:
           command: |
             mkdir ./module
             cp -R ../module/* ./module/
-            echo "Login Registry"
             echo $registry_pass | docker login $region.ocir.io -u $registry_user --password-stdin
             repo="Repo_$CIRCLE_PROJECT_REPONAME"
             docker build -t $region.ocir.io/$namespace/${!repo}:$tag .
@@ -133,14 +132,14 @@ jobs:
 workflows:
   my-workflow:
     jobs:
-#      - IaaC-OCI:
-#          context: 
-#            - tf-def
+      - IaaC-OCI:
+          context: 
+            - tf-def
       - BuildApp:
           context: 
             - oci-resources
-#          requires:
-#            - IaaC-OCI
+          requires:
+            - IaaC-OCI
       - DeployFn:
           context:
             - tf-def

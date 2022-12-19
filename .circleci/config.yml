@@ -112,7 +112,7 @@ jobs:
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars
-            echo "subnet_ocid=$subnet" >> terraform.tfvars
+            echo "subnet_ocid=\"$subnet\"" >> terraform.tfvars
             pwd
             cat terraform.tfvars
           working_directory: ~/project/tf_main/

@@ -50,6 +50,13 @@ variable "registry_endpoint" {
   type = string
 }
 
+variable "registry_username" {
+  type = string
+}
+
+variable "registry_password" {
+  type = string
+}
 
 terraform {
   backend "s3" {
@@ -186,7 +193,7 @@ resource "oci_container_instances_container_instance" "container_instance" {
   #Optional
   password = var.registry_password
   #secret_id = oci_vault_secret.test_secret.id
-  username = var.regisry_username
+  username = var.registry_username
   }
   #volumes {
   #Required

@@ -185,16 +185,16 @@ resource "oci_container_instances_container_instance" "container_instance" {
   #fault_domain = var.container_instance_fault_domain
   #freeform_tags = {"bar-key"= "value"}
   #graceful_shutdown_timeout_in_seconds = var.container_instance_graceful_shutdown_timeout_in_seconds
-  image_pull_secrets {
+  #image_pull_secrets {
   #Required
-  registry_endpoint = var.registry_endpoint
-  secret_type = "BASIC"
+  #registry_endpoint = var.registry_endpoint
+  #secret_type = "BASIC"
 
   #Optional
-  password = var.registry_password
+  #password = var.registry_password
   #secret_id = oci_vault_secret.test_secret.id
-  username = var.registry_username
-  }
+  #username = var.registry_username
+  #}
   #volumes {
   #Required
   #name = var.container_instance_volumes_name

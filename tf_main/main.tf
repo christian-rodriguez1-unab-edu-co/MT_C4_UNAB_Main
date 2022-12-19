@@ -83,9 +83,9 @@ provider "oci" {
 
 /*Container*/
 
-resource "oci_container_instances_container_instance" "test_container_instance" {
+resource "oci_container_instances_container_instance" "container_instance" {
   #Required
-  availability_domain = "RgyX:SA-SAOPAULO-1-AD-1"
+  availability_domain = "SA-SAOPAULO-1-AD-1"
   compartment_id      = var.compartment_ocid
   containers {
     #Required
@@ -96,7 +96,7 @@ resource "oci_container_instances_container_instance" "test_container_instance" 
     #arguments = var.container_instance_containers_arguments
     #command = var.container_instance_containers_command
     #defined_tags = var.container_instance_containers_defined_tags
-    #display_name = var.container_instance_containers_display_name
+    display_name = "backend"
     #environment_variables = var.container_instance_containers_environment_variables
     #freeform_tags = var.container_instance_containers_freeform_tags
     #health_checks {
@@ -166,7 +166,7 @@ resource "oci_container_instances_container_instance" "test_container_instance" 
   #Optional
   #container_restart_policy = var.container_instance_container_restart_policy
   #defined_tags = {"foo-namespace.bar-key"= "value"}
-  display_name = "intance-backend"
+  display_name = "container_instance-def"
   #dns_config {
 
   #Optional

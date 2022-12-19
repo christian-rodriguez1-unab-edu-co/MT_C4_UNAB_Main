@@ -38,7 +38,7 @@ variable "module" {
   type = string
 }
 
-variable "function_image" {
+variable "image" {
   type = string
 }
 
@@ -46,8 +46,9 @@ variable "subnet_ocid" {
   type = string
 }
 
-
-
+variable "registry_endpoint" {
+  type = string
+}
 
 
 terraform {
@@ -89,7 +90,7 @@ resource "oci_container_instances_container_instance" "container_instance" {
   compartment_id      = var.compartment_ocid
   containers {
     #Required
-    image_url = var.function_image
+    image_url = var.image
 
     #Optional
     #additional_capabilities = var.container_instance_containers_additional_capabilities
@@ -177,16 +178,16 @@ resource "oci_container_instances_container_instance" "container_instance" {
   #fault_domain = var.container_instance_fault_domain
   #freeform_tags = {"bar-key"= "value"}
   #graceful_shutdown_timeout_in_seconds = var.container_instance_graceful_shutdown_timeout_in_seconds
-  #image_pull_secrets {
+  image_pull_secrets {
   #Required
-  #registry_endpoint = var.container_instance_image_pull_secrets_registry_endpoint
-  #secret_type = var.container_instance_image_pull_secrets_secret_type
+  registry_endpoint = var.registry_endpoint
+  secret_type = "BASIC"
 
   #Optional
-  #password = var.container_instance_image_pull_secrets_password
+  password = var.registry_password
   #secret_id = oci_vault_secret.test_secret.id
-  #username = var.container_instance_image_pull_secrets_username
-  #}
+  username = var.regisry_username
+  }
   #volumes {
   #Required
   #name = var.container_instance_volumes_name

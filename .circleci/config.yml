@@ -108,11 +108,16 @@ jobs:
             repo="Repo_$CIRCLE_PROJECT_REPONAME"
             repo=$(eval echo \$$repo)
             echo "module=\"${repo}\"" >> terraform.tfvars
-            echo "function_image=\"$region.ocir.io/$namespace/${repo}:$tag\"" >> terraform.tfvars
+            registry_endpoint
+            echo "registry_endpoint=\"$region.ocir.io/$namespace/\"" >> terraform.tfvars
+            echo "image=\"${repo}:$tag\"" >> terraform.tfvars
+            echo "subnet_ocid=\"$subnet\"" >> terraform.tfvars
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars
             echo "subnet_ocid=\"$subnet\"" >> terraform.tfvars
+
+            echo $registry_pass | docker login $region.ocir.io -u $registry_user --password-stdin
             pwd
             cat terraform.tfvars
           working_directory: ~/project/tf_main/
@@ -141,6 +146,5 @@ workflows:
           context:
             - tf-def
             - oci-resources
-            - endpoints
           requires:
             - BuildApp

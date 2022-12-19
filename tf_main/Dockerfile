@@ -8,4 +8,4 @@ COPY ./module/package*.json ./
 RUN npm install
 # Copy all artifacts including generated ones
 COPY ./module/ /function/
-CMD [ "node", "func.js" ]
+CMD [ "node", "index.js" ]

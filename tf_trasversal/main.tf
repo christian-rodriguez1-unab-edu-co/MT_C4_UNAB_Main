@@ -179,7 +179,7 @@ resource "oci_artifacts_container_repository" "container_repository" {
 
     #Optional
     is_immutable = false
-#    is_public = true
+    is_public = true
 }
 
 /*

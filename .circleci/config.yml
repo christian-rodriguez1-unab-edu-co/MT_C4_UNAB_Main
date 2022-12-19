@@ -110,7 +110,6 @@ jobs:
             echo "module=\"${repo}\"" >> terraform.tfvars
             echo "registry_endpoint=\"$region.ocir.io/$namespace/\"" >> terraform.tfvars
             echo "image=\"${repo}:$tag\"" >> terraform.tfvars
-            echo "subnet_ocid=\"$subnet\"" >> terraform.tfvars
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars

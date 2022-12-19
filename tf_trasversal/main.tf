@@ -289,7 +289,7 @@ resource "circleci_context_environment_variable" "region" {
   context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"
 }
 
-resource "circleci_context_environment_variable" "region" {
+resource "circleci_context_environment_variable" "subnet" {
   variable   = "subnet"
   value      = oci_core_subnet.subnet.id
   context_id = "e4730023-fbf9-4b23-bcd7-62b5e8bc9a6a"

@@ -140,7 +140,7 @@ resource "oci_container_instances_container_instance" "container_instance" {
     #}
     #working_directory = var.container_instance_containers_working_directory
   }
-  #shape = 1
+  shape = "CI.Standard.E4.Flex"
   shape_config {
     #Required
     ocpus = 2

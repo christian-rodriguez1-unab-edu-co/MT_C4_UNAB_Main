@@ -132,14 +132,14 @@ jobs:
 workflows:
   my-workflow:
     jobs:
-      - IaaC-OCI:
-          context: 
-            - tf-def
+#      - IaaC-OCI:
+#          context: 
+#            - tf-def
       - BuildApp:
           context: 
             - oci-resources
-          requires:
-            - IaaC-OCI
+#          requires:
+#            - IaaC-OCI
       - DeployFn:
           context:
             - tf-def

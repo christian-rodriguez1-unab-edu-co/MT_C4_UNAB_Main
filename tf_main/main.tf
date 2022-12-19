@@ -85,7 +85,7 @@ provider "oci" {
 
 resource "oci_container_instances_container_instance" "container_instance" {
   #Required
-  availability_domain = "SA-SAOPAULO-1-AD-1"
+  availability_domain = "RgyX:SA-SAOPAULO-1-AD-1"
   compartment_id      = var.compartment_ocid
   containers {
     #Required

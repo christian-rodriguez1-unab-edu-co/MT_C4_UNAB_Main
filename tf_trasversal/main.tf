@@ -133,8 +133,18 @@ resource "oci_core_security_list" "security_list" {
     source   = "0.0.0.0/0"
 
     tcp_options {
-      max = "443"
-      min = "443"
+      max = "4000"
+      min = "4000"
+    }
+  }
+
+    ingress_security_rules {
+    protocol = "6"
+    source   = "0.0.0.0/0"
+
+    tcp_options {
+      max = "80"
+      min = "80F"
     }
   }
 

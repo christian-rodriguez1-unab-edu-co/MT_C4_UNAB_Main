@@ -5,7 +5,7 @@ exports.readTeam = async (req, res) => {
 
     try {
         const team = await Team.find();
-        res.json({ team });
+        res.json(team);
 
     } catch (error) {
         console.log(error);

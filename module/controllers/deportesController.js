@@ -6,7 +6,7 @@ const Deports = require("../models/deportes");
        
             try {
                 const deport = await Deports.find({});
-                res.json({ deport });
+                res.json(deport);
         
             } catch (error) {
                 console.log(error);

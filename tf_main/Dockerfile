@@ -9,3 +9,5 @@ RUN npm install
 # Copy all artifacts including generated ones
 COPY ./module/ /function/
 CMD [ "node", "index.js" ]
+
+EXPOSE 4000

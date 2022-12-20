@@ -144,7 +144,7 @@ resource "oci_core_security_list" "security_list" {
 
     tcp_options {
       max = "80"
-      min = "80F"
+      min = "80"
     }
   }
 

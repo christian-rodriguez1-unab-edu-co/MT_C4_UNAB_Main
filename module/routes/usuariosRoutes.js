@@ -7,7 +7,7 @@ const usuariosController=require('../controllers/usuariosControler')
     router.get('/:username',authMiddleware,usuariosController.findone)
 
     //llamado post user
-    router.post('/',authMiddleware,usuariosController.add)
+    router.post('/',usuariosController.add)
 
     //llamado put user
     router.put('/:id',authMiddleware,usuariosController.update)

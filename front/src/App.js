@@ -5,11 +5,10 @@ import Menu from './components/Menu';
 import PageInicio from './components/PageInicio';
 import Login from './components/Login';
 import Logout from './components/Logout';
+import Usuario from './components/Usuario';
 
 
 import Equipos from './components/Equipos';
-
-import MiPerfil from './components/MiPerfil';
 
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -28,9 +27,9 @@ class App extends Component {
             <Route path='/PageInicio' element={<PageInicio />} />
             <Route path='/Login' element={<Login />} />
             <Route path='/Logout' element={<Logout />} />
+            <Route path='/Usuario' element={<Usuario />} />
 
             <Route path='/Equipos' element={<Equipos />} />
-            <Route path='/MiPerfil' element={<MiPerfil />} />
 
           </Routes>
         </Router>

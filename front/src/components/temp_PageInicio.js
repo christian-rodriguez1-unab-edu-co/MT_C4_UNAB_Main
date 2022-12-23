@@ -73,16 +73,16 @@ class PageInicio extends Component {
 
         return (
 
-            <div class="row">
-                <div class="col-3">
-                    <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end">
-                        <nav class="nav nav-pills flex-column">
-                            <a class="nav-link" href="">Deportes</a>
-                            <nav class="nav nav-pills flex-column">
+            <div className="row">
+                <div className="col-3">
+                    <nav id="navbar-example3" className="h-100 flex-column align-items-stretch pe-4 border-end">
+                        <nav className="nav nav-pills flex-column">
+                            <a className="nav-link" href="">Deportes</a>
+                            <nav className="nav nav-pills flex-column">
                                 {
                                     this.state.deportes.map(deporte => {
                                         return (
-                                            <a class="nav-link ms-3 my-1" href={"#" + deporte._id}>{deporte.Nombre}</a>
+                                            <a className="nav-link ms-3 my-1" href={"#" + deporte._id}>{deporte.Nombre}</a>
                                         )
                                     })
                                 }
@@ -91,8 +91,8 @@ class PageInicio extends Component {
                     </nav>
                 </div>
 
-                <div class="col-9">
-                    <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
+                <div className="col-9">
+                    <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" className="scrollspy-example-2" tabindex="0">
                         {console.log(this.state.eventos)}
                         {
                             this.state.deportes.map(deporte => {

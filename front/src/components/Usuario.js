@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import axios from 'axios'
-import Cookies from 'universal-cookie'
+import Cookies from 'js-cookie'
 
 
 const baseUrl = "http://140.238.190.38:4000/api/";
@@ -13,7 +13,7 @@ class Usuario extends Component {
 
     getUsuario = () => {
 
-        console.log(Cookies.get('Rol'))
+//        console.log(Cookies.get('Rol'))
 
         const Rol = Cookies.get('Rol')
         const Token = Cookies.get('Token')
@@ -27,10 +27,19 @@ class Usuario extends Component {
         })
 
             .then(response => {
+                
                 //console.log(response.data)
                 const user = response.data
                 console.log(user)
                 this.setState({ user })
+          
+            })
+
+            .catch(response => {
+                console.log(response.response.data.msg)
+                alert(response.response.data.msg)
+                window.location.href='../logout'
+
             })
     }
 
@@ -42,19 +51,19 @@ class Usuario extends Component {
 
         return (
 
-            <div class="row">
-                <div class="col-3">
-                    <nav id="navbar-example3" class="h-100 flex-column align-items-stretch pe-4 border-end">
-                        <nav class="nav nav-pills flex-column">
-                            <a class="nav-link" href="">Usuario</a>
-                            <nav class="nav nav-pills flex-column">
+            <div className="row">
+                <div className="col-3">
+                    <nav id="navbar-example3" className="h-100 flex-column align-items-stretch pe-4 border-end">
+                        <nav className="nav nav-pills flex-column">
+                            <a className="nav-link" href="">Usuario</a>
+                            <nav className="nav nav-pills flex-column">
                                 {
                                     this.state.user.map(user => {
                                         return (
                                             <div>
-                                                <input class="nav-link ms-3 my-1" href={"#" + user._id}>{user.Nombre_Completo}</input>
-                                                <input class="nav-link ms-3 my-1" href={"#" + user._id}>{user.Username}</input>
-                                                <input class="nav-link ms-3 my-1" href={"#" + user._id}>{user.Password}</input>
+                                                <input className="nav-link ms-3 my-1" href={"#" + user._id}>{user.Nombre_Completo}</input>
+                                                <input className="nav-link ms-3 my-1" href={"#" + user._id}>{user.Username}</input>
+                                                <input className="nav-link ms-3 my-1" href={"#" + user._id}>{user.Password}</input>
                                             </div>
                                         )
                                     })

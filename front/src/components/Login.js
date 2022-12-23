@@ -76,26 +76,26 @@ class Login extends Component{
   render(){
         return(
           
-          <div class='Principal'>
-            <div class='Secundario'>
+          <div className='Principal'>
+            <div className='Secundario'>
           <form>
           
-            <div class="form-outline mb-4">
-              <label class="form-label" for="form2Example1">username: </label>
-              <input type="text" id="Username" class="form-control" name="Username" onChange={this.handleChange} />
+            <div className="form-outline mb-4">
+              <label className="form-label" for="form2Example1">username: </label>
+              <input type="text" id="Username" className="form-control" name="Username" onChange={this.handleChange} />
             </div>
           
 
-            <div class="form-outline mb-4">
-              <label class="form-label" for="form2Example2">Password</label>
-              <input type="password" id="Password" class="form-control" name="Password" onChange={this.handleChange} />
+            <div className="form-outline mb-4">
+              <label className="form-label" for="form2Example2">Password</label>
+              <input type="password" id="Password" className="form-control" name="Password" onChange={this.handleChange} />
             </div>
 
       
-            <button type="button" class="btn btn-primary btn-block mb-4" onClick={()=>this.iniciarSesion()}>iniciar Sesion</button>
+            <button type="button" className="btn btn-primary btn-block mb-4" onClick={()=>this.iniciarSesion()}>iniciar Sesion</button>
           
             
-            <div class="text-center">
+            <div className="text-center">
               <p>No cuenta con usuario? <a href="#!">Registese aquí!</a></p>
               
             </div>

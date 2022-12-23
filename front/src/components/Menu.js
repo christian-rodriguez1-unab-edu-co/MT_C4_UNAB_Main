@@ -31,7 +31,7 @@ class Menu extends Component {
             <b>Marcadores Deportivos</b>
           </Link>
           <form className="form-inline">
-            <Link className="form-inline btn text-light mr-2" aria-current="page" to={'/usuario/'+this.state.Username}><b>{this.state.Nombre_Completo}</b></Link>
+            <Link className="form-inline btn text-light mr-2" aria-current="page" to='/usuario'><b>{this.state.Nombre_Completo}</b></Link>
             <Link className="form-inline btn text-light bg-dark mr-2" to='/Logout'><b>Cerrar Sesión</b></Link>
             </form>
         </nav>

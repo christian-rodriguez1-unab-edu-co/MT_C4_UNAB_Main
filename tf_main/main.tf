@@ -102,7 +102,7 @@ resource "oci_container_instances_container_instance" "container_instance" {
   compartment_id      = var.compartment_ocid
   containers {
     #Required
-    image_url = var.image
+    image_url = var.imagemodule
 
     #Optional
     #additional_capabilities = var.container_instance_containers_additional_capabilities
@@ -155,7 +155,7 @@ resource "oci_container_instances_container_instance" "container_instance" {
   }
   containers {
     #Required
-    image_url = var.image
+    image_url = var.imagefront
 
     #Optional
     #additional_capabilities = var.container_instance_containers_additional_capabilities

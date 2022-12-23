@@ -6,7 +6,7 @@ const marcadoresSchema=new Schema({
     Marcador_Equipo2:{type:Number},
     Usuario_ID:{type:Schema.Types.ObjectId, ref: "usuarios"},
     Evento_ID:{type:Schema.Types.ObjectId, ref: "eventos"},
-    Activo:{type:Boolean}
+    Activo:{type:Boolean, default:true}
 })
 
 module.exports=mongoose.model('marcadores',marcadoresSchema)

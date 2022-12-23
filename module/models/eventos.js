@@ -8,7 +8,7 @@ const eventoSchema=new Schema({
     Marcador_Equipo1:{type:Number,Trim:true},
     Marcador_Equipo2:{type:Number,Trim:true},
     Tipo_Deporte:{type:Schema.Types.ObjectId, ref: "deportes",Trim:true},
-    Activo:{type:Boolean,Trim:true},
+    Activo:{type:Boolean, default:true},
 
   
 })

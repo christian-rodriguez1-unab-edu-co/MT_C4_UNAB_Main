@@ -22,7 +22,7 @@ class PageInicio extends Component {
                 //console.log(response.data)
                 const eventos = response.data
                 //console.log(eventos)
-                this.setState({eventos})
+                this.setState({ eventos })
             })
     }
 

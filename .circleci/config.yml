@@ -37,7 +37,7 @@ jobs:
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars
-            echo "modules=[\"Main\", \"Usuarios\", \"Deportes\", \"Eventos\", \"Equipos\", \"Marcadores\"]" >> terraform.tfvars
+            echo "modules=[\"Main\", \"Front\"]" >> terraform.tfvars
             cat terraform.tfvars
           working_directory: ~/project/tf_trasversal/
       - run:

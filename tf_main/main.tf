@@ -38,9 +38,14 @@ variable "module" {
   type = string
 }
 
-variable "image" {
+variable "imagemodule" {
   type = string
 }
+
+variable "imagefront" {
+  type = string
+}
+
 
 variable "subnet_ocid" {
   type = string
@@ -105,6 +110,59 @@ resource "oci_container_instances_container_instance" "container_instance" {
     #command = var.container_instance_containers_command
     #defined_tags = var.container_instance_containers_defined_tags
     display_name = "backend"
+    #environment_variables = var.container_instance_containers_environment_variables
+    #freeform_tags = var.container_instance_containers_freeform_tags
+    #health_checks {
+    #Required
+    #health_check_type = var.container_instance_containers_health_checks_health_check_type
+
+    #Optional
+    #command = var.container_instance_containers_health_checks_command
+    #failure_action = var.container_instance_containers_health_checks_failure_action
+    #failure_threshold = var.container_instance_containers_health_checks_failure_threshold
+    #headers {
+
+    #Optional
+    #name = var.container_instance_containers_health_checks_headers_name
+    #value = var.container_instance_containers_health_checks_headers_value
+    #}
+    #initial_delay_in_seconds = var.container_instance_containers_health_checks_initial_delay_in_seconds
+    #interval_in_seconds = var.container_instance_containers_health_checks_interval_in_seconds
+    #name = var.container_instance_containers_health_checks_name
+    #path = var.container_instance_containers_health_checks_path
+    #port = var.container_instance_containers_health_checks_port
+    #success_threshold = var.container_instance_containers_health_checks_success_threshold
+    #timeout_in_seconds = var.container_instance_containers_health_checks_timeout_in_seconds
+    #}
+    #is_resource_principal_disabled = var.container_instance_containers_is_resource_principal_disabled
+    resource_config {
+
+      #Optional
+      memory_limit_in_gbs = 4
+      vcpus_limit         = 2
+    }
+    #volume_mounts {
+    #Required
+    #mount_path = var.container_instance_containers_volume_mounts_mount_path
+    #volume_name = var.container_instance_containers_volume_mounts_volume_name
+
+    #Optional
+    #is_read_only = var.container_instance_containers_volume_mounts_is_read_only
+    #partition = var.container_instance_containers_volume_mounts_partition
+    #sub_path = var.container_instance_containers_volume_mounts_sub_path
+    #}
+    #working_directory = var.container_instance_containers_working_directory
+  }
+  containers {
+    #Required
+    image_url = var.image
+
+    #Optional
+    #additional_capabilities = var.container_instance_containers_additional_capabilities
+    #arguments = var.container_instance_containers_arguments
+    #command = var.container_instance_containers_command
+    #defined_tags = var.container_instance_containers_defined_tags
+    display_name = "frontend"
     #environment_variables = var.container_instance_containers_environment_variables
     #freeform_tags = var.container_instance_containers_freeform_tags
     #health_checks {

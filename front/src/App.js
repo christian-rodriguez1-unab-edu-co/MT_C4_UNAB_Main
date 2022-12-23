@@ -7,9 +7,10 @@ import Login from './components/Login';
 import Logout from './components/Logout';
 import Usuario from './components/Usuario';
 
-
-import Equipos from './components/Equipos';
-
+import PageEquipos from './components/PageEquipos';
+import PageDeportes from './components/PageDeportes';
+import PageEventos from './components/PageEventos';
+import PageMarcadores from './components/PageMarcadores';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -24,12 +25,14 @@ class App extends Component {
           <Menu />
           <Routes>
             <Route path='/' element={<PageInicio />} />
-            <Route path='/PageInicio' element={<PageInicio />} />
             <Route path='/Login' element={<Login />} />
             <Route path='/Logout' element={<Logout />} />
             <Route path='/Usuario' element={<Usuario />} />
 
-            <Route path='/Equipos' element={<Equipos />} />
+            <Route path='/Equipos' element={<PageEquipos />} />
+            <Route path='/Deportes' element={<PageDeportes />} />
+            <Route path='/Eventos' element={<PageEventos />} />
+            <Route path='/Marcadores' element={<PageMarcadores />} />
 
           </Routes>
         </Router>

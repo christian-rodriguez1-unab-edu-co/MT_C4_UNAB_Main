@@ -4,7 +4,7 @@ const Schema=mongoose.Schema
 const usuariosSchema = new Schema({
     Nombre_Completo: {type:String, Trin:true, lowercase:true},
     Username: {type:String, Trin:true, unique:true,lowercase:true},
-    Password: {type:String, Trin:true, lowercase:true},
+    Password: {type:String, lowercase:true},
     Rol: {type:Number, default:1},
     Token:{type:String},
     Token_Timestamp:{type:Date},

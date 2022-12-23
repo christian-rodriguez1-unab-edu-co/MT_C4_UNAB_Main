@@ -45,9 +45,9 @@ jobs:
           command: |
             terraform init -input=false
             terraform plan -out tfapply -var-file terraform.tfvars
-            terraform apply -auto-approve tfapply 
-#            terraform destroy -auto-approve tfapply 
-          working_directory: ~/project/tf_trasversal/     
+            terraform apply -auto-approve tfapply
+          #            terraform destroy -auto-approve tfapply
+          working_directory: ~/project/tf_trasversal/
   BuildApp:
     docker:
       - image: cimg/go:1.17
@@ -71,8 +71,33 @@ jobs:
             repo="Repo_$CIRCLE_PROJECT_REPONAME"
             docker build -t $region.ocir.io/$namespace/${!repo}:$tag .
             docker push $region.ocir.io/$namespace/${!repo}:$tag
-#          docker push CircleCI-Public/circleci-demo-docker:$TAG
-          working_directory: ~/project/tf_main/  
+          #          docker push CircleCI-Public/circleci-demo-docker:$TAG
+          working_directory: ~/project/tf_main/module/
+  BuildFront:
+    docker:
+      - image: cimg/go:1.17
+    # set resource class
+    resource_class: small
+    steps:
+      - checkout
+      # ... steps for building/testing app ...
+
+      - setup_remote_docker:
+          version: 20.10.14
+          docker_layer_caching: true
+
+      # build and push Docker image
+      - run:
+          name: Docker Build & Push
+          command: |
+            mkdir ./module
+            cp -R ../front/* ./module/
+            echo $registry_pass | docker login $region.ocir.io -u $registry_user --password-stdin
+            repo="Front_$CIRCLE_PROJECT_REPONAME"
+            docker build -t $region.ocir.io/$namespace/${!repo}:$tag .
+            docker push $region.ocir.io/$namespace/${!repo}:$tag
+          #          docker push CircleCI-Public/circleci-demo-docker:$TAG
+          working_directory: ~/project/tf_main/front/
   DeployFn:
     # Specify the execution environment. You can specify an image from Dockerhub or use one of our Convenience Images from CircleCI's Developer Hub.
     # See: https://circleci.com/docs/2.0/configuration-reference/#docker-machine-macos-windows-executor
@@ -105,13 +130,17 @@ jobs:
             echo "loggroup_id=\"$loggroup_id\"" >> terraform.tfvars
             echo "compartment_ocid=$compartment_ocid" >> terraform.tfvars
             echo "private_key_path=$private_key_path" >> terraform.tfvars
-            repo="Repo_$CIRCLE_PROJECT_REPONAME"
-            repo=$(eval echo \$$repo)
-            echo "module=\"${repo}\"" >> terraform.tfvars
+            repomodule="Front_$CIRCLE_PROJECT_REPONAME"
+            repomodule=$(eval echo \$$repo)
+            echo "modulerepo=\"${repomodule}\"" >> terraform.tfvars
+            repofront="Front_$CIRCLE_PROJECT_REPONAME"
+            repofront=$(eval echo \$$repo)
+            echo "modulefront=\"${repofront}\"" >> terraform.tfvars
             echo "registry_username=\"$registry_user\"" >> terraform.tfvars
             echo "registry_password=\"$registry_pass\"" >> terraform.tfvars 
             echo "registry_endpoint=\"$region.ocir.io/\"" >> terraform.tfvars
-            echo "image=\"$region.ocir.io/$namespace/$repo:$tag\"" >> terraform.tfvars
+            echo "imagemodule=\"$region.ocir.io/$namespace/$repomodule:$tag\"" >> terraform.tfvars
+            echo "imagefront=\"$region.ocir.io/$namespace/$repofront:$tag\"" >> terraform.tfvars
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars
@@ -125,18 +154,23 @@ jobs:
             pwd
             terraform init -input=false
             terraform plan -out tfapply -var-file terraform.tfvars
-            terraform apply -auto-approve tfapply 
-          working_directory: ~/project/tf_main/     
+            terraform apply -auto-approve tfapply
+          working_directory: ~/project/tf_main/
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   my-workflow:
     jobs:
       - IaaC-OCI:
-          context: 
+          context:
             - tf-def
       - BuildApp:
-          context: 
+          context:
+            - oci-resources
+          requires:
+            - IaaC-OCI
+      - BuildFront:
+          context:
             - oci-resources
           requires:
             - IaaC-OCI
@@ -146,3 +180,4 @@ workflows:
             - oci-resources
           requires:
             - BuildApp
+            - BuildFront

@@ -34,10 +34,6 @@ variable "compartment_ocid" {
   type = string
 }
 
-variable "module" {
-  type = string
-}
-
 variable "imagemodule" {
   type = string
 }

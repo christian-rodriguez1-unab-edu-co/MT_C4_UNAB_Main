@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const teamSchema = mongoose.Schema({
-    nombre: { type: String, required: true, trim: true},
-    imagen: { type:String,  required:true, trim:true},
-    deporteId: {type: mongoose.Schema.Types.ObjectId,ref:"deportes"},
-    activo: { type: Boolean, default:true },
+    Nombre: { type: String, required: true, trim: true},
+    Imagen: { type:String,  required:true, trim:true},
+    Deporte_ID: {type: mongoose.Schema.Types.ObjectId,ref:"deportes"},
+    Activo: { type: Boolean, default:true },
 });
 
 module.exports = mongoose.model("equipos", teamSchema);

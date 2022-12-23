@@ -130,17 +130,17 @@ jobs:
             echo "loggroup_id=\"$loggroup_id\"" >> terraform.tfvars
             echo "compartment_ocid=$compartment_ocid" >> terraform.tfvars
             echo "private_key_path=$private_key_path" >> terraform.tfvars
-            repomodule="Front_$CIRCLE_PROJECT_REPONAME"
-            repomodule=$(eval echo \$$repo)
+            repomodule="Repo_$CIRCLE_PROJECT_REPONAME"
+            repomodule=$(eval echo \$$repomodule)
             echo "modulerepo=\"${repomodule}\"" >> terraform.tfvars
             repofront="Front_$CIRCLE_PROJECT_REPONAME"
-            repofront=$(eval echo \$$repo)
+            repofront=$(eval echo \$$repofront)
             echo "modulefront=\"${repofront}\"" >> terraform.tfvars
             echo "registry_username=\"$registry_user\"" >> terraform.tfvars
             echo "registry_password=\"$registry_pass\"" >> terraform.tfvars 
             echo "registry_endpoint=\"$region.ocir.io/\"" >> terraform.tfvars
-            echo "imagemodule=\"$region.ocir.io/$namespace/$repomodule:$tag\"" >> terraform.tfvars
-            echo "imagefront=\"$region.ocir.io/$namespace/$repofront:$tag\"" >> terraform.tfvars
+            echo "imagemodule=\"$region.ocir.io/$namespace/$modulerepo:$tag\"" >> terraform.tfvars
+            echo "imagefront=\"$region.ocir.io/$namespace/$modulefront:$tag\"" >> terraform.tfvars
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars

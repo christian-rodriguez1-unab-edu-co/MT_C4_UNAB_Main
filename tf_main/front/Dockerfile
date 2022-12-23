@@ -10,4 +10,4 @@ RUN npm install
 COPY ./module/ /function/
 CMD [ "npm", "start" ]
 
-EXPOSE 80
+EXPOSE 3000

@@ -140,7 +140,7 @@ jobs:
             echo "registry_password=\"$registry_pass\"" >> terraform.tfvars 
             echo "registry_endpoint=\"$region.ocir.io/\"" >> terraform.tfvars
             echo "imagemodule=\"$region.ocir.io/$namespace/$repomodule:$tag\"" >> terraform.tfvars
-            echo "imagefront=\"$region.ocir.io/$namespace/$repofrontrepo:$tag\"" >> terraform.tfvars
+            echo "imagefront=\"$region.ocir.io/$namespace/$repofront:$tag\"" >> terraform.tfvars
             echo "#Provider CircleCI" >> terraform.tfvars
             echo "api_token=$api_token" >> terraform.tfvars
             echo "organization=$organization" >> terraform.tfvars

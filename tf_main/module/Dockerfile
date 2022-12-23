@@ -10,4 +10,4 @@ RUN npm install
 COPY ./module/ /function/
 CMD [ "node", "index.js" ]
 
-EXPOSE 80
+EXPOSE 4000

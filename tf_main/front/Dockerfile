@@ -8,6 +8,6 @@ COPY ./module/package*.json ./
 RUN npm install
 # Copy all artifacts including generated ones
 COPY ./module/ /function/
-CMD [ "node", "index.js" ]
+CMD [ "npm", "start" ]
 
-EXPOSE 4000
+EXPOSE 80

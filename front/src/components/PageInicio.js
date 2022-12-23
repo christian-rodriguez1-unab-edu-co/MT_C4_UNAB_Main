@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import axios from 'axios'
 
 
-const baseUrl = "http://140.238.190.38:4000/api/";
+const baseUrl = "http://140.238.179.127:4000/api/";
 
 class PageInicio extends Component {
 

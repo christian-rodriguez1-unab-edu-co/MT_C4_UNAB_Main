@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 
 
 
-const baseUrl = "http://140.238.190.38:4000/api/";
+const baseUrl = "http://140.238.179.127:4000/api/";
 
 class PageEventos extends Component {
     state = {

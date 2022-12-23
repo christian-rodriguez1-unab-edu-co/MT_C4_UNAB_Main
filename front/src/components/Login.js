@@ -6,7 +6,7 @@ import md5 from 'md5'
 import Cookies from 'universal-cookie'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
 
-const baseUrl="http://140.238.190.38:4000/api/usuarios";
+const baseUrl="http://140.238.179.127:4000/api/usuarios";
 const cookies = new Cookies();
 
 class Login extends Component{
